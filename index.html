@@ -1984,7 +1984,7 @@
         </div>
         <div style="display: flex; flex-direction: column;">
             <label style="font-size: 0.82rem; font-weight: 600;">Full Name</label>
-            <input type="text" id="userAuthName" placeholder="e.g. Rahul Sharma">
+            <input type="text" id="userAuthName" placeholder="e.g. You Name">
 
             <label style="font-size: 0.82rem; font-weight: 600;">Mobile Number / Email</label>
             <input type="text" id="userAuthContact" placeholder="e.g. 98320XXXXX">
@@ -3554,7 +3554,7 @@
 
     function verifyAdminLogin() {
         let pass = document.getElementById("adminPasswordInput").value;
-        if (pass === "admin123") {
+        if (pass === "You Password") {
             isAdminLoggedIn = true;
             let adminBtn = document.getElementById("adminNavBtn");
             adminBtn.innerHTML = "🔓 Admin Logout";
@@ -3566,7 +3566,7 @@
             renderAllSections();
             alert("Admin Login Successful! You can now Add, Edit, and Delete categories and items[cite: 1].");
         } else {
-            alert("Incorrect password! Try 'admin123'");
+            alert("Incorrect password! Try 'Your Password'");
         }
     }
 
