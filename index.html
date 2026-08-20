@@ -147,18 +147,25 @@
             align-items: center;
         }
         .lang-selector, .theme-toggle, .admin-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 7px 14px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 8px 16px;
+            border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
             font-size: 0.85rem;
-            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
         }
         .theme-toggle:hover, .lang-selector:hover, .admin-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
         }
         .lang-selector option {
             background: #1e293b;
@@ -561,8 +568,8 @@
             flex-wrap: wrap;
         }
 
-        /* Modals */
-        .menu-modal, .auth-modal, .details-modal, .share-modal, .modal, .map-modal, .booking-modal, .reminder-modal, .profile-modal, .promo-modal, .quiz-modal {
+        /* Modals & Auth Box Beautification */
+        .menu-modal, .auth-modal, .user-auth-modal, .details-modal, .share-modal, .modal, .map-modal, .booking-modal, .reminder-modal, .profile-modal, .promo-modal, .quiz-modal {
             display: none;
             position: fixed;
             z-index: 3000;
@@ -574,7 +581,7 @@
             backdrop-filter: blur(5px);
             animation: fadeIn 0.3s ease;
         }
-        .menu-box, .auth-box, .details-box, .share-box, .map-box, .booking-box, .reminder-box, .profile-box, .promo-box, .quiz-box {
+        .menu-box, .details-box, .share-box, .map-box, .booking-box, .reminder-box, .profile-box, .promo-box, .quiz-box {
             background: var(--section-bg);
             color: var(--text-color);
             margin: 8% auto;
@@ -589,13 +596,40 @@
             max-height: 85vh;
             overflow-y: auto;
         }
-        .menu-box h3, .auth-box h3, .details-box h3, .share-box h3, .map-box h3, .booking-box h3, .reminder-box h3, .profile-box h3, .promo-box h3, .quiz-box h3 {
-            margin-top: 0;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
-        }
         
-        .close-menu, .close-auth, .close-details, .close-share, .close-modal, .close-map, .close-booking, .close-reminder, .close-profile, .close-promo, .close-quiz {
+        .auth-box {
+            background: var(--section-bg);
+            color: var(--text-color);
+            margin: 12% auto;
+            padding: 35px;
+            width: 90%;
+            max-width: 420px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            position: relative;
+            border: 1px solid var(--border-color);
+            animation: zoom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .auth-box input[type="password"], .auth-box input[type="text"], .auth-box input[type="email"] {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 0.95rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 15px;
+            background: var(--search-bg);
+            color: var(--text-color);
+            outline: none;
+            transition: all 0.3s;
+        }
+        .auth-box input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
+        }
+
+        .close-menu, .close-auth, .close-user-auth, .close-details, .close-share, .close-modal, .close-map, .close-booking, .close-reminder, .close-profile, .close-promo, .close-quiz {
             position: absolute;
             top: 15px;
             right: 20px;
@@ -606,7 +640,7 @@
             opacity: 0.6;
             transition: opacity 0.2s;
         }
-        .close-menu:hover, .close-auth:hover, .close-details:hover, .close-share:hover, .close-modal:hover, .close-map:hover, .close-booking:hover, .close-reminder:hover, .close-profile:hover, .close-promo:hover, .close-quiz:hover {
+        .close-menu:hover, .close-auth:hover, .close-user-auth:hover, .close-details:hover, .close-share:hover, .close-modal:hover, .close-map:hover, .close-booking:hover, .close-reminder:hover, .close-profile:hover, .close-promo:hover, .close-quiz:hover {
             opacity: 1;
         }
 
@@ -849,7 +883,7 @@
     <div class="controls-container">
         <button class="admin-btn" onclick="openPromoModal()" style="background:#f59e0b;">📢 Business Promo</button>
         <button class="admin-btn" onclick="openQuizModal()" style="background:#8b5cf6;">🧠 City Quiz</button>
-        <button class="admin-btn" onclick="openProfileModal()" id="profileNavBtn">👤 Profile</button>
+        <button class="admin-btn" onclick="handleUserAuthClick()" id="userAuthNavBtn">👤 User Login</button>
         <button class="admin-btn" onclick="handleAdminClick()" id="adminNavBtn">🔐 Admin Login</button>
         <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
         <select id="languageSelect" class="lang-selector" onchange="changeLanguage()">
@@ -984,6 +1018,10 @@
     <!-- Dedicated Favorites & Profile Section -->
     <section id="favorites">
         <h2>⭐ Advanced Favorites & Profile Section</h2>
+        <div id="userProfileDisplayArea" style="background: var(--search-bg); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); display:none;">
+            <h3 id="loggedInUserNameTitle" style="margin-top:0; color:var(--primary-color);">👤 Welcome, User</h3>
+            <p id="loggedInUserDetails" style="margin: 5px 0; font-size:0.95rem;"></p>
+        </div>
         <p>Quickly access all your starred listings, manage your booked appointments, saved reminders, and user profile data:</p>
         
         <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
@@ -1935,20 +1973,24 @@
     </div>
 </div>
 
-<!-- Profile Modal -->
-<div id="profileModal" class="profile-modal">
-    <div class="profile-box">
-        <span class="close-profile" onclick="closeProfileModal()">×</span>
-        <h3>👤 User Profile & Settings</h3>
-        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
-            <label style="font-weight: 600; font-size: 0.85rem;">Your Name:</label>
-            <input type="text" id="profileName" placeholder="Enter your name">
+<!-- User Login / Signup Modal -->
+<div id="userAuthModal" class="user-auth-modal">
+    <div class="auth-box">
+        <span class="close-user-auth" onclick="closeUserAuthModal()">&times;</span>
+        <div style="text-align: center; margin-bottom: 15px;">
+            <div style="font-size: 2.2rem; margin-bottom: 5px;">👤</div>
+            <h3 style="margin: 0; font-size: 1.4rem; font-weight: 700;">User Portal</h3>
+            <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 4px;">Login or create your account to view profile</p>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <label style="font-size: 0.82rem; font-weight: 600;">Full Name</label>
+            <input type="text" id="userAuthName" placeholder="e.g. Rahul Sharma">
 
-            <label style="font-weight: 600; font-size: 0.85rem;">Email / Phone:</label>
-            <input type="text" id="profileContact" placeholder="Enter email or mobile">
+            <label style="font-size: 0.82rem; font-weight: 600;">Mobile Number / Email</label>
+            <input type="text" id="userAuthContact" placeholder="e.g. 98320XXXXX">
 
-            <label style="font-weight: 600; font-size: 0.85rem;">Preferred Blood Group:</label>
-            <select id="profileBloodGroup">
+            <label style="font-size: 0.82rem; font-weight: 600;">Preferred Blood Group</label>
+            <select id="userAuthBloodGroup" style="width: 100%; padding: 12px; border-radius: 10px; border: 2px solid var(--border-color); background: var(--search-bg); color: var(--text-color); margin-bottom: 15px;">
                 <option value="Not Specified">Not Specified</option>
                 <option value="A+">A+</option>
                 <option value="A-">A-</option>
@@ -1960,7 +2002,7 @@
                 <option value="AB-">AB-</option>
             </select>
 
-            <button class="admin-btn-submit" onclick="saveUserProfile()">Save Profile Data</button>
+            <button onclick="confirmUserLogin()" class="admin-btn-submit" style="width:100%; padding: 12px; font-weight: 600;">Login / Save Profile</button>
         </div>
     </div>
 </div>
@@ -2027,11 +2069,17 @@
 
 <div id="authModal" class="auth-modal">
     <div class="auth-box">
-        <span class="close-auth" onclick="closeAuthModal()">×</span>
-        <h3 id="auth-title">Admin Authentication</h3>
-        <p id="auth-desc" style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">Enter admin password to enable Add, Edit & Delete features.</p>
-        <input type="password" id="adminPasswordInput" placeholder="Password (default: admin123)">
-        <button onclick="verifyAdminLogin()" class="admin-btn-submit" id="auth-login-btn" style="width:100%;">Login</button>
+        <span class="close-auth" onclick="closeAuthModal()">&times;</span>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div style="font-size: 2.5rem; margin-bottom: 8px;">🔐</div>
+            <h3 id="auth-title" style="margin: 0; font-size: 1.5rem; font-weight: 700;">Admin Authentication</h3>
+            <p id="auth-desc" style="font-size: 0.9rem; margin-top: 6px; opacity: 0.8;">Enter admin password to enable Add, Edit & Delete features[cite: 1].</p>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <label style="font-size: 0.85rem; font-weight: 600; opacity: 0.9;">Password</label>
+            <input type="password" id="adminPasswordInput" placeholder="••••••••••••">
+            <button onclick="verifyAdminLogin()" class="admin-btn-submit" id="auth-login-btn" style="width:100%; padding: 12px; font-size: 1rem; border-radius: 10px; font-weight: 600;">Secure Login</button>
+        </div>
     </div>
 </div>
 
@@ -2075,8 +2123,6 @@
         <div class="gallery-thumbs-row" id="modalThumbsRow"></div>
     </div>
 </div>
-
-<button onclick="scrollToTop()" id="backToTop" title="Go to top">⬆️</button>
 
 <div id="imageModal" class="modal">
     <span class="close-modal" onclick="closeModal()">×</span>
@@ -2239,6 +2285,7 @@
     };
 
     let isAdminLoggedIn = false;
+    let isUserLoggedIn = false;
     let currentShareText = "";
     let activeDetailedItemObject = null;
     let currentBookingItemTitle = "";
@@ -2307,7 +2354,7 @@
             sec4Desc: "There are many historical places to visit in Tamluk:",
             tourismSearchLbl: "Search Tourism Spot:",
             authTitle: "Admin Authentication",
-            authDesc: "Enter admin password to enable Add, Edit & Delete features.",
+            authDesc: "Enter admin password to enable Add, Edit & Delete features[cite: 1].",
             authLoginBtn: "Login",
             footerText: "© 2026 Tamluk Guide - Your City, Our Pride."
         },
@@ -2353,7 +2400,7 @@
             sec4Desc: "তমলুক দেখার মতো অনেক ঐতিহাসিক স্থান রয়েছে:",
             tourismSearchLbl: "পর্যটন কেন্দ্র খুঁজুন:",
             authTitle: "অ্যাডমিন প্রমাণীকরণ",
-            authDesc: "যোগ, সম্পাদনা এবং মোছার বৈশিষ্ট্যগুলি সক্ষম করতে অ্যাডমিন পাসওয়ার্ড লিখুন।",
+            authDesc: "যোগ, সম্পাদনা এবং মোছার বৈশিষ্ট্যগুলি সক্ষম করতে অ্যাডমিন পাসওয়ার্ড লিখুন[cite: 1]。",
             authLoginBtn: "লগইন",
             footerText: "© ২০২৬ তমলুক গাইড - আপনার শহর, আমাদের গর্ব।"
         },
@@ -2399,7 +2446,7 @@
             sec4Desc: "तमलुक में घूमने के लिए कई ऐतिहासिक स्थान हैं:",
             tourismSearchLbl: "पर्यटन स्थल खोजें:",
             authTitle: "एडमिन प्रमाणीकरण",
-            authDesc: "जोड़ें, संपादित करें और हटाएं सुविधाएं सक्षम करने के लिए एडमिन पासवर्ड दर्ज करें।",
+            authDesc: "जोड़ें, संपादित करें और हटाएं सुविधाएं सक्षम करने के लिए एडमिन पासवर्ड दर्ज करें[cite: 1]。",
             authLoginBtn: "लॉगिन",
             footerText: "© 2026 तमलुक गाइड - आपका शहर, हमारा गर्व।"
         }
@@ -2407,6 +2454,7 @@
 
     function initApp() {
         loadDataFromStorage();
+        checkExistingUserSession();
         renderAllSections();
         setLanguage('en');
         
@@ -2422,6 +2470,19 @@
 
         fetchWeather();
         startFestivalCountdown();
+    }
+
+    function checkExistingUserSession() {
+        let savedProfile = localStorage.getItem("tamluk_user_profile");
+        if (savedProfile) {
+            let profile = JSON.parse(savedProfile);
+            if (profile && profile.name) {
+                isUserLoggedIn = true;
+                let btn = document.getElementById("userAuthNavBtn");
+                btn.innerHTML = `👤 ${profile.name} (Logout)`;
+                btn.style.background = "#059669";
+            }
+        }
     }
 
     function loadDataFromStorage() {
@@ -2844,6 +2905,20 @@
         if(!favGrid) return;
         favGrid.innerHTML = "";
 
+        let profileBox = document.getElementById("userProfileDisplayArea");
+        let profileDetails = document.getElementById("loggedInUserDetails");
+        let profileNameTitle = document.getElementById("loggedInUserNameTitle");
+
+        let savedUser = localStorage.getItem("tamluk_user_profile");
+        if(savedUser) {
+            let user = JSON.parse(savedUser);
+            profileBox.style.display = "block";
+            profileNameTitle.innerText = `👤 Welcome, ${user.name}`;
+            profileDetails.innerHTML = `📧 <strong>Contact:</strong> ${user.contact} | 🩸 <strong>Blood Group:</strong> <span style="color:var(--primary-color); font-weight:bold;">${user.bloodGroup}</span>`;
+        } else {
+            profileBox.style.display = "none";
+        }
+
         let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
         if(favorites.length === 0) {
             favGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; opacity: 0.7;">No favorite items added yet. Click the star icon on any card to save it here!</p>`;
@@ -3232,27 +3307,51 @@
         renderMyReminders();
     }
 
-    function openProfileModal() {
-        let profile = JSON.parse(localStorage.getItem("tamluk_user_profile")) || {};
-        if(profile.name) document.getElementById("profileName").value = profile.name;
-        if(profile.contact) document.getElementById("profileContact").value = profile.contact;
-        if(profile.bloodGroup) document.getElementById("profileBloodGroup").value = profile.bloodGroup;
-        document.getElementById("profileModal").style.display = "block";
+    function handleUserAuthClick() {
+        if (isUserLoggedIn) {
+            if (confirm("Do you want to log out from your user account?")) {
+                localStorage.removeItem("tamluk_user_profile");
+                isUserLoggedIn = false;
+                let btn = document.getElementById("userAuthNavBtn");
+                btn.innerHTML = "👤 User Login";
+                btn.style.background = "";
+                renderFavorites();
+                alert("Logged out successfully.");
+            }
+        } else {
+            let savedProfile = JSON.parse(localStorage.getItem("tamluk_user_profile")) || {};
+            if (savedProfile.name) document.getElementById("userAuthName").value = savedProfile.name;
+            if (savedProfile.contact) document.getElementById("userAuthContact").value = savedProfile.contact;
+            if (savedProfile.bloodGroup) document.getElementById("userAuthBloodGroup").value = savedProfile.bloodGroup;
+            document.getElementById("userAuthModal").style.display = "block";
+        }
     }
 
-    function closeProfileModal() {
-        document.getElementById("profileModal").style.display = "none";
+    function closeUserAuthModal() {
+        document.getElementById("userAuthModal").style.display = "none";
     }
 
-    function saveUserProfile() {
-        let name = document.getElementById("profileName").value.trim();
-        let contact = document.getElementById("profileContact").value.trim();
-        let bloodGroup = document.getElementById("profileBloodGroup").value;
+    function confirmUserLogin() {
+        let name = document.getElementById("userAuthName").value.trim();
+        let contact = document.getElementById("userAuthContact").value.trim();
+        let bloodGroup = document.getElementById("userAuthBloodGroup").value;
+
+        if(!name || !contact) {
+            alert("Please enter your name and contact info.");
+            return;
+        }
 
         let profile = { name, contact, bloodGroup };
         localStorage.setItem("tamluk_user_profile", JSON.stringify(profile));
-        alert("Profile updated successfully!");
-        closeProfileModal();
+        isUserLoggedIn = true;
+
+        let btn = document.getElementById("userAuthNavBtn");
+        btn.innerHTML = `👤 ${name} (Logout)`;
+        btn.style.background = "#059669";
+
+        closeUserAuthModal();
+        renderFavorites();
+        alert(`Welcome, ${name}! You are successfully logged in.`);
     }
 
     function toggleAiChat() {
@@ -3437,7 +3536,9 @@
         if (isAdminLoggedIn) {
             if(confirm("Do you want to log out from Admin mode?")) {
                 isAdminLoggedIn = false;
-                document.getElementById("adminNavBtn").innerText = "🔐 Admin Login";
+                let adminBtn = document.getElementById("adminNavBtn");
+                adminBtn.innerHTML = "🔐 Admin Login";
+                adminBtn.style.background = ""; 
                 hideAllAdminPanels();
                 renderAllSections();
                 alert("Logged out successfully.");
@@ -3455,12 +3556,15 @@
         let pass = document.getElementById("adminPasswordInput").value;
         if (pass === "admin123") {
             isAdminLoggedIn = true;
-            document.getElementById("adminNavBtn").innerText = "🔓 Admin Logout";
+            let adminBtn = document.getElementById("adminNavBtn");
+            adminBtn.innerHTML = "🔓 Admin Logout";
+            adminBtn.style.background = "#059669"; 
+            
             closeAuthModal();
             document.getElementById("adminPasswordInput").value = "";
             showAllAdminPanels();
             renderAllSections();
-            alert("Admin Login Successful! You can now Add, Edit, and Delete categories and items.");
+            alert("Admin Login Successful! You can now Add, Edit, and Delete categories and items[cite: 1].");
         } else {
             alert("Incorrect password! Try 'admin123'");
         }
@@ -3740,12 +3844,12 @@
         if (event.target === document.getElementById("multiPhotoModal")) closeMultiPhotoModal();
         if (event.target === document.getElementById("shareModal")) closeShareModal();
         if (event.target === document.getElementById("authModal")) closeAuthModal();
+        if (event.target === document.getElementById("userAuthModal")) closeUserAuthModal();
         if (event.target === document.getElementById("menuModal")) closeMenuModal();
         if (event.target === document.getElementById("detailsModal")) closeDetailsModal();
         if (event.target === document.getElementById("mapModal")) closeMapModal();
         if (event.target === document.getElementById("bookingModal")) closeBookingModal();
         if (event.target === document.getElementById("reminderModal")) closeReminderModal();
-        if (event.target === document.getElementById("profileModal")) closeProfileModal();
         if (event.target === document.getElementById("promoModal")) closePromoModal();
         if (event.target === document.getElementById("quizModal")) closeQuizModal();
     }
