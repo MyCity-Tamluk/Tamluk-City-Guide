@@ -294,7 +294,6 @@
             line-height: 1.5;
         }
 
-        /* Feature Widgets (GPS, Countdown, Reviews) */
         .feature-box {
             background: var(--search-bg);
             border: 1px solid var(--border-color);
@@ -336,7 +335,6 @@
             font-size: 0.9rem;
         }
 
-        /* Transport Links Grid */
         .transport-links-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -404,6 +402,9 @@
         .btn-delete { background: #ef4444; color: white; }
         .btn-menu { background: #8b5cf6; color: white; }
         .btn-whatsapp { background: #22c55e; color: white; }
+        .btn-book { background: #06b6d4; color: white; }
+        .btn-reminder { background: #ec4899; color: white; }
+        .btn-speak { background: #6366f1; color: white; }
 
         .weather-widget {
             background: var(--search-bg);
@@ -521,7 +522,6 @@
             transform: scale(1.1);
         }
 
-        /* Multiple Photo Gallery Styles */
         .gallery-container {
             display: flex;
             gap: 8px;
@@ -562,7 +562,7 @@
         }
 
         /* Modals */
-        .menu-modal, .auth-modal, .details-modal, .share-modal, .modal {
+        .menu-modal, .auth-modal, .details-modal, .share-modal, .modal, .map-modal, .booking-modal, .reminder-modal, .profile-modal, .promo-modal, .quiz-modal {
             display: none;
             position: fixed;
             z-index: 3000;
@@ -574,26 +574,28 @@
             backdrop-filter: blur(5px);
             animation: fadeIn 0.3s ease;
         }
-        .menu-box, .auth-box, .details-box, .share-box {
+        .menu-box, .auth-box, .details-box, .share-box, .map-box, .booking-box, .reminder-box, .profile-box, .promo-box, .quiz-box {
             background: var(--section-bg);
             color: var(--text-color);
-            margin: 10% auto;
+            margin: 8% auto;
             padding: 30px;
             width: 90%;
-            max-width: 450px;
+            max-width: 500px;
             border-radius: 16px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             position: relative;
             animation: zoom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             border: 1px solid var(--border-color);
+            max-height: 85vh;
+            overflow-y: auto;
         }
-        .menu-box h3, .auth-box h3, .details-box h3, .share-box h3 {
+        .menu-box h3, .auth-box h3, .details-box h3, .share-box h3, .map-box h3, .booking-box h3, .reminder-box h3, .profile-box h3, .promo-box h3, .quiz-box h3 {
             margin-top: 0;
             border-bottom: 2px solid var(--primary-color);
             padding-bottom: 10px;
         }
         
-        .close-menu, .close-auth, .close-details, .close-share, .close-modal {
+        .close-menu, .close-auth, .close-details, .close-share, .close-modal, .close-map, .close-booking, .close-reminder, .close-profile, .close-promo, .close-quiz {
             position: absolute;
             top: 15px;
             right: 20px;
@@ -604,7 +606,7 @@
             opacity: 0.6;
             transition: opacity 0.2s;
         }
-        .close-menu:hover, .close-auth:hover, .close-details:hover, .close-share:hover, .close-modal:hover {
+        .close-menu:hover, .close-auth:hover, .close-details:hover, .close-share:hover, .close-modal:hover, .close-map:hover, .close-booking:hover, .close-reminder:hover, .close-profile:hover, .close-promo:hover, .close-quiz:hover {
             opacity: 1;
         }
 
@@ -645,6 +647,109 @@
             animation: zoom 0.3s ease;
         }
 
+        /* AI Assistant Widget Style */
+        #aiAssistantWidget {
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            z-index: 99;
+            background: linear-gradient(135deg, #0d9488, #115e59);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 10px 20px rgba(13, 148, 136, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        #aiAssistantWidget:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #0f766e, #0d9488);
+        }
+
+        .ai-chat-box {
+            background: var(--section-bg);
+            color: var(--text-color);
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 340px;
+            max-width: 90vw;
+            height: 420px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            animation: fadeInUp 0.3s ease;
+        }
+        .ai-chat-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 15px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .ai-chat-body {
+            flex: 1;
+            padding: 12px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.88rem;
+        }
+        .ai-msg {
+            padding: 8px 12px;
+            border-radius: 10px;
+            max-width: 80%;
+            line-height: 1.4;
+        }
+        .ai-msg.bot {
+            background: var(--search-bg);
+            align-self: flex-start;
+            border: 1px solid var(--border-color);
+        }
+        .ai-msg.user {
+            background: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+        }
+        .ai-chat-footer {
+            padding: 10px;
+            display: flex;
+            gap: 6px;
+            border-top: 1px solid var(--border-color);
+            background: var(--search-bg);
+        }
+        .ai-chat-footer input {
+            flex: 1;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--section-bg);
+            color: var(--text-color);
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .ai-chat-footer button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
         #sosBtn {
             position: fixed;
             bottom: 85px;
@@ -663,10 +768,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        #sosBtn:hover {
-            background-color: #dc2626;
-            transform: scale(1.05);
+            display: none;
         }
 
         #backToTop {
@@ -721,7 +823,6 @@
 </head>
 <body onload="initApp()">
 
-<!-- Announcement Ticker Bar -->
 <div class="announcement-bar">
     <div class="announcement-content" id="announcementText">
         🎉 Welcome to Tamluk City Guide! Check out live weather updates, verified hospital contacts, blood donor directory, photo gallery, and local job board seamlessly. Stay safe, stay connected!
@@ -739,18 +840,16 @@
 <nav>
     <div class="nav-links">
         <a onclick="showSection('home')" id="nav-home">Home</a>
-        <a onclick="showSection('favorites')" id="nav-favorites">⭐ Favorites</a>
-        <a onclick="showSection('blood-bank')" id="nav-blood">🩸 Blood Donors</a>
+        <a onclick="showSection('browse-categories-page')" id="nav-browse">Browse Categories</a>
+        <a onclick="showSection('favorites')" id="nav-favorites">⭐ Favorites & Profile</a>
         <a onclick="showSection('events-board')" id="nav-events-board">📅 Notice & Events</a>
-        <a onclick="showSection('job-board')" id="nav-jobs-board">💼 Local Jobs</a>
         <a onclick="showSection('city-gallery')" id="nav-city-gallery">🖼️ City Gallery</a>
-        <a onclick="showSection('hospital-doctor')" id="nav-hospital">Hospitals & Doctors</a>
-        <a onclick="showSection('district-municipality')" id="nav-district">District & Municipality</a>
-        <a onclick="showSection('train-bus')" id="nav-transport">Train & Bus Routes</a>
         <a onclick="showSection('emergency')" id="nav-emergency">Emergency Contacts</a>
-        <a onclick="showSection('tourism')" id="nav-tourism">Tourism</a>
     </div>
     <div class="controls-container">
+        <button class="admin-btn" onclick="openPromoModal()" style="background:#f59e0b;">📢 Business Promo</button>
+        <button class="admin-btn" onclick="openQuizModal()" style="background:#8b5cf6;">🧠 City Quiz</button>
+        <button class="admin-btn" onclick="openProfileModal()" id="profileNavBtn">👤 Profile</button>
         <button class="admin-btn" onclick="handleAdminClick()" id="adminNavBtn">🔐 Admin Login</button>
         <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
         <select id="languageSelect" class="lang-selector" onchange="changeLanguage()">
@@ -766,7 +865,6 @@
         <h2 id="sec1-title">Home (Introduction)</h2>
         <p id="sec1-desc">Tamluk is a historic city and the headquarters of the Purba Medinipur district in West Bengal. Situated on the banks of the Rupnarayan river, it is historically renowned as ancient Tamralipta, a major port and cultural center.</p>
         
-        <!-- Quick Stats Banner -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin: 25px 0;">
             <div style="background: var(--search-bg); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid var(--border-color);">
                 <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary-color);">35+</div>
@@ -782,7 +880,6 @@
             </div>
         </div>
 
-        <!-- Festival Countdown Timer Widget -->
         <div class="feature-box">
             <h3 style="margin-top: 0; font-size: 1.1rem;">⏳ Durga Puja / Kali Puja Festival Countdown</h3>
             <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 5px;">Time remaining for the grand celebrations in Tamluk:</p>
@@ -794,7 +891,6 @@
             </div>
         </div>
 
-        <!-- Live GPS Distance Calculator Widget -->
         <div class="feature-box">
             <h3 style="margin-top: 0; font-size: 1.1rem;">📍 Live GPS Distance Calculator</h3>
             <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 10px;">Calculate your exact distance from prominent Tamluk landmarks (like Bargabhima Temple):</p>
@@ -802,7 +898,6 @@
             <div id="gpsResultText" style="margin-top: 10px; font-weight: 600; font-size: 0.9rem;"></div>
         </div>
 
-        <!-- Community Poll Widget -->
         <div class="feature-box">
             <h3 style="margin-top: 0; font-size: 1.1rem;">📊 City Development Poll</h3>
             <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 10px;">Which sector needs the most improvement in Tamluk?</p>
@@ -816,35 +911,13 @@
             <div id="pollResultBox" style="margin-top: 10px; font-size: 0.85rem; font-weight: 600;"></div>
         </div>
 
-        <!-- Live Weather Widget -->
         <div class="weather-widget" id="weatherWidget">
             🌤️ Tamluk Weather: Loading live forecast...
-        </div>
-
-        <div class="search-container" style="margin-top: 25px;">
-            <label for="globalSearch" id="global-search-lbl" style="font-weight: 600; font-size: 0.95rem;">Global Search Categories:</label>
-            <input type="text" id="globalSearch" onkeyup="filterGlobalCategories()" placeholder="Search categories (e.g. Restaurants, Health, Auto)...">
         </div>
 
         <div class="home-img-container">
             <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop" alt="Tamluk City View" onclick="openModal(this.src)">
         </div>
-
-        <div id="admin-panel-category" class="admin-form-container" style="display: none; margin-top: 30px;">
-            <h3 id="formTitle-category">➕ Add New Category</h3>
-            <input type="hidden" id="editIndex-category" value="">
-            <input type="text" id="catInputName" placeholder="Category Name (e.g. Hotels)">
-            <input type="text" id="catInputIcon" placeholder="Emoji Icon (e.g. 🏨)">
-            <select id="catInputType">
-                <option value="section">Dedicated Section</option>
-            </select>
-            <input type="text" id="catInputTarget" placeholder="Target Section ID (e.g. hotels-section)">
-            <textarea id="catInputDesc" placeholder="Category Details / Description"></textarea>
-            <button class="admin-btn-submit" onclick="saveAdminCategory()">Save Category</button>
-        </div>
-
-        <h3 id="browse-cat-title" style="margin-top: 35px;">Browse Categories</h3>
-        <div class="category-grid" id="categoryGrid"></div>
 
         <h3 style="margin-top: 40px;" id="sec1-feedback-title">Send Your Feedback / Suggestions</h3>
         <div class="feedback-form">
@@ -854,11 +927,45 @@
         </div>
     </section>
 
-    <!-- Dedicated Favorites Section -->
+    <!-- Browse Categories New Page Section -->
+    <section id="browse-categories-page">
+        <h2>📂 Browse All Categories</h2>
+        <p>Explore all available categories, administration updates, and tourism spots in Tamluk:</p>
+        
+        <div class="search-container" style="margin-top: 15px;">
+            <input type="text" id="fullCategorySearch" onkeyup="filterFullCategories()" placeholder="Search from all categories...">
+        </div>
+
+        <div class="category-grid" id="fullCategoryGrid"></div>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+    </section>
+
+    <!-- Dedicated Favorites & Profile Section -->
     <section id="favorites">
-        <h2>⭐ Dedicated Favorites Section</h2>
-        <p>Quickly access all the places, doctors, and listings you have starred as your favorites:</p>
-        <div class="card-grid" id="favoritesGrid"></div>
+        <h2>⭐ Advanced Favorites & Profile Section</h2>
+        <p>Quickly access all your starred listings, manage your booked appointments, saved reminders, and user profile data:</p>
+        
+        <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+            <button class="admin-btn-submit" onclick="switchFavTab('favoritesListTab')" style="flex:1;">⭐ Starred Favorites</button>
+            <button class="admin-btn-submit" onclick="switchFavTab('bookingsListTab')" style="flex:1; background:#06b6d4;">📅 My Bookings</button>
+            <button class="admin-btn-submit" onclick="switchFavTab('remindersListTab')" style="flex:1; background:#ec4899;">⏰ My Reminders</button>
+        </div>
+
+        <div id="favoritesListTab" class="fav-tab-content">
+            <h3>Starred Favorites</h3>
+            <div class="card-grid" id="favoritesGrid"></div>
+        </div>
+
+        <div id="bookingsListTab" class="fav-tab-content" style="display:none;">
+            <h3>Your Appointments & Table Bookings</h3>
+            <div class="card-grid" id="myBookingsGrid"></div>
+        </div>
+
+        <div id="remindersListTab" class="fav-tab-content" style="display:none;">
+            <h3>Your Saved Event Reminders</h3>
+            <div class="card-grid" id="myRemindersGrid"></div>
+        </div>
+
         <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
     </section>
 
@@ -894,7 +1001,7 @@
         </div>
 
         <div class="card-grid" id="bloodDonorGrid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Local Notice & Events Board Section -->
@@ -934,7 +1041,7 @@
         </div>
 
         <div class="card-grid" id="localJobGrid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- City Photo Gallery Section -->
@@ -973,7 +1080,7 @@
 
         <div class="card-grid" id="restaurant-grid"></div>
 
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Real Estate Dedicated Section -->
@@ -994,7 +1101,7 @@
 
         <div class="card-grid" id="real-estate-grid"></div>
 
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Pets Dedicated Section -->
@@ -1015,7 +1122,7 @@
 
         <div class="card-grid" id="pets-grid"></div>
 
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Computers Dedicated Section -->
@@ -1033,7 +1140,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('computers')">Save Item</button>
         </div>
         <div class="card-grid" id="computers-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Auto Dedicated Section -->
@@ -1051,7 +1158,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('auto')">Save Item</button>
         </div>
         <div class="card-grid" id="auto-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Seniors Dedicated Section -->
@@ -1069,7 +1176,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('seniors')">Save Item</button>
         </div>
         <div class="card-grid" id="seniors-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Kids Dedicated Section -->
@@ -1087,7 +1194,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('kids')">Save Item</button>
         </div>
         <div class="card-grid" id="kids-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Health & Wellness Dedicated Section -->
@@ -1105,7 +1212,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('health-wellness')">Save Item</button>
         </div>
         <div class="card-grid" id="health-wellness-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Home Improvement Dedicated Section -->
@@ -1123,7 +1230,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('home-improvement')">Save Item</button>
         </div>
         <div class="card-grid" id="home-improvement-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Education & Training Dedicated Section -->
@@ -1141,7 +1248,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('education-training')">Save Item</button>
         </div>
         <div class="card-grid" id="education-training-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Electronics Dedicated Section -->
@@ -1159,7 +1266,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('electronics')">Save Item</button>
         </div>
         <div class="card-grid" id="electronics-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Jobs Dedicated Section -->
@@ -1177,7 +1284,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('jobs')">Save Item</button>
         </div>
         <div class="card-grid" id="jobs-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Community Dedicated Section -->
@@ -1195,7 +1302,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('community')">Save Item</button>
         </div>
         <div class="card-grid" id="community-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Events Dedicated Section -->
@@ -1213,7 +1320,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('events')">Save Item</button>
         </div>
         <div class="card-grid" id="events-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Misc Dedicated Section -->
@@ -1231,7 +1338,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('misc')">Save Item</button>
         </div>
         <div class="card-grid" id="misc-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- List Your Business FREE Dedicated Section -->
@@ -1249,7 +1356,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('list-business')">Save Item</button>
         </div>
         <div class="card-grid" id="list-business-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Shopping & Retail Dedicated Section -->
@@ -1267,7 +1374,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('shopping-retail')">Save Item</button>
         </div>
         <div class="card-grid" id="shopping-retail-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Arts & Culture Dedicated Section -->
@@ -1285,7 +1392,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('arts-culture')">Save Item</button>
         </div>
         <div class="card-grid" id="arts-culture-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Clubs & Organizations Dedicated Section -->
@@ -1303,7 +1410,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('clubs-organizations')">Save Item</button>
         </div>
         <div class="card-grid" id="clubs-organizations-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Community Pools Dedicated Section -->
@@ -1321,7 +1428,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('community-pools')">Save Item</button>
         </div>
         <div class="card-grid" id="community-pools-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Education Dedicated Section -->
@@ -1339,7 +1446,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('education')">Save Item</button>
         </div>
         <div class="card-grid" id="education-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Government Dedicated Section -->
@@ -1357,7 +1464,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('government')">Save Item</button>
         </div>
         <div class="card-grid" id="government-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Local Grocers Dedicated Section -->
@@ -1375,7 +1482,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('local-grocers')">Save Item</button>
         </div>
         <div class="card-grid" id="local-grocers-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Local News Dedicated Section -->
@@ -1393,7 +1500,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('local-news')">Save Item</button>
         </div>
         <div class="card-grid" id="local-news-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Local Parks Dedicated Section -->
@@ -1411,7 +1518,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('local-parks')">Save Item</button>
         </div>
         <div class="card-grid" id="local-parks-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Movies Dedicated Section -->
@@ -1429,7 +1536,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('movies')">Save Item</button>
         </div>
         <div class="card-grid" id="movies-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Music Dedicated Section -->
@@ -1447,7 +1554,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('music')">Save Item</button>
         </div>
         <div class="card-grid" id="music-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Sports & Recreation Dedicated Section -->
@@ -1465,7 +1572,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('sports-recreation')">Save Item</button>
         </div>
         <div class="card-grid" id="sports-recreation-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- State Parks Dedicated Section -->
@@ -1483,7 +1590,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('state-parks')">Save Item</button>
         </div>
         <div class="card-grid" id="state-parks-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Personal Dedicated Section -->
@@ -1501,7 +1608,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('personal')">Save Item</button>
         </div>
         <div class="card-grid" id="personal-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Professional Services Dedicated Section -->
@@ -1519,7 +1626,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('professional-services')">Save Item</button>
         </div>
         <div class="card-grid" id="professional-services-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Financial Services Dedicated Section -->
@@ -1537,7 +1644,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('financial-services')">Save Item</button>
         </div>
         <div class="card-grid" id="financial-services-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Legal Services Dedicated Section -->
@@ -1555,7 +1662,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('legal-services')">Save Item</button>
         </div>
         <div class="card-grid" id="legal-services-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Wedding & Events Dedicated Section -->
@@ -1573,7 +1680,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('wedding-events')">Save Item</button>
         </div>
         <div class="card-grid" id="wedding-events-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <!-- Cleaning Services Dedicated Section -->
@@ -1591,7 +1698,7 @@
             <button class="admin-btn-submit" onclick="saveAdminGenericItem('cleaning-services')">Save Item</button>
         </div>
         <div class="card-grid" id="cleaning-services-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <section id="hospital-doctor">
@@ -1614,32 +1721,7 @@
         <div class="card-grid" id="hospital-grid"></div>
         <h3 id="sec5-sub2">Specialist Doctors</h3>
         <div class="card-grid" id="doctor-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
-    </section>
-
-    <section id="district-municipality">
-        <h2 id="sec6-title">Purba Medinipur District & Municipality Updates</h2>
-        <p id="sec6-desc">Information and administrative updates regarding Purba Medinipur district, municipalities, and police stations.</p>
-        <div class="search-container">
-            <label for="districtSearch" id="district-search-lbl" style="font-weight: 600;">Search Administration, Municipality or Police Station:</label>
-            <input type="text" id="districtSearch" onkeyup="filterSection('district-municipality', 'districtSearch')" placeholder="Type district office, municipality or police station...">
-        </div>
-        <div id="admin-panel-district-municipality" class="admin-form-container" style="display: none;">
-            <h3 id="formTitle-district-municipality">➕ Add New District/Municipality Item</h3>
-            <input type="hidden" id="editIndex-district-municipality" value="">
-            <input type="text" id="itemTitle-district-municipality" placeholder="Title">
-            <input type="text" id="itemSub-district-municipality" placeholder="Location / Address">
-            <input type="text" id="itemInfo1-district-municipality" placeholder="Phone">
-            <textarea id="itemInfo2-district-municipality" placeholder="Details"></textarea>
-            <button class="admin-btn-submit" onclick="saveAdminItem('district-municipality')">Save Item</button>
-        </div>
-        <h3 id="sec6-sub1">District Administration</h3>
-        <div class="card-grid" id="district-grid"></div>
-        <h3 id="sec6-sub2">Municipality Updates</h3>
-        <div class="card-grid" id="municipality-grid"></div>
-        <h3 id="sec6-sub3">Police Stations (District Law & Order)</h3>
-        <div class="card-grid" id="police-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <section id="train-bus">
@@ -1681,7 +1763,32 @@
         <div class="card-grid" id="train-grid"></div>
         <h3 id="sec7-sub2">Bus Routes & Services</h3>
         <div class="card-grid" id="bus-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
+    </section>
+
+    <section id="district-municipality">
+        <h2 id="sec6-title">Purba Medinipur District & Municipality Updates</h2>
+        <p id="sec6-desc">Information and administrative updates regarding Purba Medinipur district, municipalities, and police stations.</p>
+        <div class="search-container">
+            <label for="districtSearch" id="district-search-lbl" style="font-weight: 600;">Search Administration, Municipality or Police Station:</label>
+            <input type="text" id="districtSearch" onkeyup="filterSection('district-municipality', 'districtSearch')" placeholder="Type district office, municipality or police station...">
+        </div>
+        <div id="admin-panel-district-municipality" class="admin-form-container" style="display: none;">
+            <h3 id="formTitle-district-municipality">➕ Add New District/Municipality Item</h3>
+            <input type="hidden" id="editIndex-district-municipality" value="">
+            <input type="text" id="itemTitle-district-municipality" placeholder="Title">
+            <input type="text" id="itemSub-district-municipality" placeholder="Location / Address">
+            <input type="text" id="itemInfo1-district-municipality" placeholder="Phone">
+            <textarea id="itemInfo2-district-municipality" placeholder="Details"></textarea>
+            <button class="admin-btn-submit" onclick="saveAdminItem('district-municipality')">Save Item</button>
+        </div>
+        <h3 id="sec6-sub1">District Administration</h3>
+        <div class="card-grid" id="district-grid"></div>
+        <h3 id="sec6-sub2">Municipality Updates</h3>
+        <div class="card-grid" id="municipality-grid"></div>
+        <h3 id="sec6-sub3">Police Stations (District Law & Order)</h3>
+        <div class="card-grid" id="police-grid"></div>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 
     <section id="emergency">
@@ -1720,11 +1827,150 @@
             <button class="admin-btn-submit" onclick="saveAdminItem('tourism')">Save Item</button>
         </div>
         <div class="card-grid" id="tourism-grid"></div>
-        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('home')">⬅ Back to Home</button>
+        <button class="btn-action back-home-btn" style="margin-top: 30px; background:#64748b; color:white; padding: 10px 18px;" onclick="showSection('browse-categories-page')">⬅ Back to Categories</button>
     </section>
 </div>
 
-<!-- Social Share Modal -->
+<!-- Live Map Modal -->
+<div id="mapModal" class="map-modal">
+    <div class="map-box">
+        <span class="close-map" onclick="closeMapModal()">×</span>
+        <h3 id="mapModalTitle">🗺️ Live Map & Location</h3>
+        <p id="mapModalSubtitle" style="font-size:0.9rem; opacity:0.8; margin-bottom:15px;"></p>
+        <div style="width: 100%; height: 320px; background: #e2e8f0; border-radius: 12px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 1px solid var(--border-color);">
+            <div id="mapPlaceholderText" style="text-align: center; font-weight: 600; padding: 20px;">
+                📍 Interactive Map View<br><span style="font-size: 0.85rem; font-weight: normal; opacity: 0.8;" id="mapQueryCoords">Tamluk, West Bengal</span>
+            </div>
+            <iframe id="mapIframe" width="100%" height="100%" style="border:0; display:none;" loading="lazy" src=""></iframe>
+        </div>
+        <div style="margin-top: 15px; display: flex; gap: 10px;">
+            <a id="mapExternalLink" href="#" target="_blank" class="admin-btn-submit" style="text-align: center; text-decoration: none; flex: 1;">Open in Google Maps App</a>
+        </div>
+    </div>
+</div>
+
+<!-- Appointment / Table Booking Modal -->
+<div id="bookingModal" class="booking-modal">
+    <div class="booking-box">
+        <span class="close-booking" onclick="closeBookingModal()">×</span>
+        <h3 id="bookingModalTitle">📅 Book Appointment / Table</h3>
+        <p id="bookingItemNameSubtitle" style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px;"></p>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <label style="font-weight: 600; font-size: 0.85rem;">Your Full Name:</label>
+            <input type="text" id="bookingUserName" placeholder="Enter your name">
+            
+            <label style="font-weight: 600; font-size: 0.85rem;">Contact Mobile Number:</label>
+            <input type="text" id="bookingUserPhone" placeholder="Enter mobile number">
+            
+            <label style="font-weight: 600; font-size: 0.85rem;">Select Date:</label>
+            <input type="date" id="bookingDate">
+            
+            <label style="font-weight: 600; font-size: 0.85rem;">Select Time / Slot:</label>
+            <input type="time" id="bookingTime">
+
+            <label style="font-weight: 600; font-size: 0.85rem;">Additional Notes:</label>
+            <textarea id="bookingNotes" rows="2" placeholder="Write any specifications..."></textarea>
+
+            <button class="admin-btn-submit" onclick="confirmBookingSubmission()">Confirm Booking</button>
+        </div>
+    </div>
+</div>
+
+<!-- Event Reminder Modal -->
+<div id="reminderModal" class="reminder-modal">
+    <div class="reminder-box">
+        <span class="close-reminder" onclick="closeReminderModal()">×</span>
+        <h3>⏰ Set Event / Notice Reminder</h3>
+        <p id="reminderItemTitle" style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px;"></p>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <label style="font-weight: 600; font-size: 0.85rem;">Reminder Date:</label>
+            <input type="date" id="reminderDate">
+            
+            <label style="font-weight: 600; font-size: 0.85rem;">Reminder Time:</label>
+            <input type="time" id="reminderTime">
+
+            <button class="admin-btn-submit" onclick="confirmReminderSave()" style="background: #ec4899;">Save Reminder</button>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="profile-modal">
+    <div class="profile-box">
+        <span class="close-profile" onclick="closeProfileModal()">×</span>
+        <h3>👤 User Profile & Settings</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
+            <label style="font-weight: 600; font-size: 0.85rem;">Your Name:</label>
+            <input type="text" id="profileName" placeholder="Enter your name">
+
+            <label style="font-weight: 600; font-size: 0.85rem;">Email / Phone:</label>
+            <input type="text" id="profileContact" placeholder="Enter email or mobile">
+
+            <label style="font-weight: 600; font-size: 0.85rem;">Preferred Blood Group:</label>
+            <select id="profileBloodGroup">
+                <option value="Not Specified">Not Specified</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select>
+
+            <button class="admin-btn-submit" onclick="saveUserProfile()">Save Profile Data</button>
+        </div>
+    </div>
+</div>
+
+<!-- Business Promo Modal -->
+<div id="promoModal" class="promo-modal">
+    <div class="promo-box">
+        <span class="close-promo" onclick="closePromoModal()">×</span>
+        <h3>📢 Submit Business Promo / Offer</h3>
+        <p style="font-size:0.85rem; opacity:0.8; margin-bottom:15px;">List your shop offers or discount notices on Tamluk Guide:</p>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="text" id="promoShopName" placeholder="Business / Shop Name">
+            <input type="text" id="promoContact" placeholder="Contact Mobile Number">
+            <textarea id="promoDesc" rows="3" placeholder="Write your offer / discount details..."></textarea>
+            <button class="admin-btn-submit" onclick="submitPromoRequest()" style="background:#f59e0b;">Send Promo Request</button>
+        </div>
+    </div>
+</div>
+
+<!-- City Quiz Modal -->
+<div id="quizModal" class="quiz-modal">
+    <div class="quiz-box">
+        <span class="close-quiz" onclick="closeQuizModal()">×</span>
+        <h3>🧠 Tamluk City Heritage Quiz</h3>
+        <div id="quizContainer" style="margin-top: 15px;">
+            <p id="quizQuestion" style="font-weight: 600; font-size: 1rem;"></p>
+            <div id="quizOptions" style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;"></div>
+            <div id="quizResultMsg" style="margin-top: 15px; font-weight: 700;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- AI City Assistant Widget -->
+<button id="aiAssistantWidget" onclick="toggleAiChat()">🤖 AI City Assistant</button>
+<div class="ai-chat-box" id="aiChatBox">
+    <div class="ai-chat-header">
+        <span>🤖 Tamluk AI Assistant</span>
+        <span style="cursor: pointer; font-size: 18px;" onclick="toggleAiChat()">×</span>
+    </div>
+    <div class="ai-chat-body" id="aiChatBody">
+        <div class="ai-msg bot">Hello! I am your Tamluk City Guide virtual assistant. Ask me anything about local hospitals, tourist spots like Bargabhima Temple, restaurants, or transport!</div>
+    </div>
+    <div class="ai-chat-footer">
+        <input type="text" id="aiChatInput" placeholder="Ask about Tamluk..." onkeypress="handleAiKeyPress(event)">
+        <button onclick="sendAiMessage()">Send</button>
+    </div>
+</div>
+
+<a href="#" id="sosBtn" onclick="triggerSosWhatsApp(event)" title="Emergency SOS Location Share">🚨 SOS GPS</a>
+<button onclick="scrollToTop()" id="backToTop" title="Go to top">⬆️</button>
+
 <div id="shareModal" class="share-modal">
     <div class="share-box">
         <span class="close-share" onclick="closeShareModal()">×</span>
@@ -1756,14 +2002,12 @@
     </div>
 </div>
 
-<!-- Details Modal -->
 <div id="detailsModal" class="details-modal">
     <div class="details-box">
         <span class="close-details" onclick="closeDetailsModal()">×</span>
         <h3 id="detailsModalTitle">Details</h3>
         <div id="detailsModalContent" style="margin-top: 15px; font-size: 0.95rem; line-height: 1.7;"></div>
         
-        <!-- User Reviews & Ratings Section Inside Details Modal -->
         <div style="margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 15px;">
             <h4 style="margin: 0 0 10px 0; font-size: 1rem;">⭐ User Reviews & Ratings</h4>
             <div id="modalReviewsList" style="max-height: 150px; overflow-y: auto;"></div>
@@ -1783,7 +2027,6 @@
     </div>
 </div>
 
-<!-- Multi-Photo Gallery Modal -->
 <div id="multiPhotoModal" class="modal">
     <span class="close-modal" onclick="closeMultiPhotoModal()">×</span>
     <div class="modal-content gallery-modal-content">
@@ -1792,7 +2035,6 @@
     </div>
 </div>
 
-<a href="tel:112" id="sosBtn" title="Emergency SOS Call">🚨 SOS</a>
 <button onclick="scrollToTop()" id="backToTop" title="Go to top">⬆️</button>
 
 <div id="imageModal" class="modal">
@@ -1806,6 +2048,12 @@
 
 <script>
     let defaultCategories = [
+        {name: "Emergency Blood Donors", icon: "🩸", action: "section", target: "blood-bank", desc: "Find verified voluntary blood donors."},
+        {name: "Local Job Board", icon: "💼", action: "section", target: "job-board", desc: "Explore employment and careers."},
+        {name: "Hospitals & Doctors", icon: "🏥", action: "section", target: "hospital-doctor", desc: "Find hospitals and specialist doctors."},
+        {name: "Train & Bus Routes", icon: "🚆", action: "section", target: "train-bus", desc: "Check train schedules and bus routes."},
+        {name: "District & Municipality", icon: "🏛️", action: "section", target: "district-municipality", desc: "Purba Medinipur administration updates."},
+        {name: "Tourism", icon: "🌴", action: "section", target: "tourism", desc: "Explore historical places in Tamluk."},
         {name: "Restaurants & Food", icon: "🍽️", action: "section", target: "restaurants-food-section", desc: ""},
         {name: "Real Estate", icon: "🏡", action: "section", target: "real-estate-section", desc: ""},
         {name: "Pets", icon: "🐶", action: "section", target: "pets-section", desc: ""},
@@ -1877,18 +2125,6 @@
                     {item: 'Mixed Chowmein', price: '₹150'},
                     {item: 'Fish Finger', price: '₹160'}
                 ]
-            },
-            {
-                title: "Casurina Restaurant",
-                address: "Parbatipur, Tamluk (Near Bargabhima Temple)",
-                phone: "03228-266222",
-                img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop",
-                menu: [
-                    {item: 'Veg Thali', price: '₹120'},
-                    {item: 'Mutton Kosha', price: '₹280'},
-                    {item: 'Chilli Chicken', price: '₹200'},
-                    {item: 'Fried Rice', price: '₹140'}
-                ]
             }
         ],
         "real-estate": [
@@ -1898,13 +2134,6 @@
                 phone: "9832012345",
                 img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=600&auto=format&fit=crop",
                 desc: "Residential Plots & Land Deals around Tamluk Bypass & Court Road with clear titles."
-            },
-            {
-                title: "Station Road Commercial Spaces",
-                address: "Station Road, Tamluk",
-                phone: "9832054321",
-                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop",
-                desc: "Commercial spaces available near Main Market and Station Road for shops and offices."
             }
         ],
         "pets": [
@@ -1914,387 +2143,93 @@
                 phone: "9434098765",
                 img: "https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=600&auto=format&fit=crop",
                 desc: "Local veterinary clinics and animal care support available near Tamluk town."
-            },
-            {
-                title: "Paws & Claws Pet Shop",
-                address: "Court Road, Tamluk",
-                phone: "9434012345",
-                img: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=600&auto=format&fit=crop",
-                desc: "Pet shops offering food, accessories, and grooming essentials."
             }
         ],
-        "computers": [
-            {
-                title: "IT Care Solutions",
-                address: "Station Road, Tamluk",
-                phone: "9732011111",
-                img: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?q=80&w=600&auto=format&fit=crop",
-                desc: "Laptop and Desktop sales, hardware repair, and maintenance services."
-            }
-        ],
-        "auto": [
-            {
-                title: "Medinipur Two-Wheeler Showroom",
-                address: "NH-116B, Tamluk",
-                phone: "9732022222",
-                img: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?q=80&w=600&auto=format&fit=crop",
-                desc: "Two-wheeler and four-wheeler showrooms along NH-116B and Tamluk Bypass."
-            }
-        ],
-        "seniors": [
-            {
-                title: "Elderly Care & Home Nursing",
-                address: "Tamluk Town",
-                phone: "9732033333",
-                img: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=600&auto=format&fit=crop",
-                desc: "Elderly care services, home nursing assistance, and senior citizen welfare groups."
-            }
-        ],
-        "kids": [
-            {
-                title: "Little Champs Play School",
-                address: "Padumbasan, Tamluk",
-                phone: "9732044444",
-                img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=600&auto=format&fit=crop",
-                desc: "Play schools, crèches, pediatric clinics, and children parks."
-            }
-        ],
-        "health-wellness": [
-            {
-                title: "FitLife Gym & Wellness",
-                address: "Keranitola, Tamluk",
-                phone: "9732055555",
-                img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop",
-                desc: "Fitness gyms, yoga training centers, wellness clubs, and modern diagnostic labs."
-            }
-        ],
-        "home-improvement": [
-            {
-                title: "Tamluk Hardware & Building Materials",
-                address: "Bypass Road, Tamluk",
-                phone: "9732066666",
-                img: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=600&auto=format&fit=crop",
-                desc: "Interior decorators, hardware stores, tile and marble suppliers."
-            }
-        ],
-        "education-training": [
-            {
-                title: "Apex Coaching Institute",
-                address: "Court Road, Tamluk",
-                phone: "9732077777",
-                img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600&auto=format&fit=crop",
-                desc: "Competitive exam coaching institutes, computer training centers, and skill development."
-            }
-        ],
-        "electronics": [
-            {
-                title: "Modern Electronics World",
-                address: "Main Market, Tamluk",
-                phone: "9732088888",
-                img: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=600&auto=format&fit=crop",
-                desc: "Multi-brand electronic showrooms for TVs, refrigerators, washing machines, and mobile phones."
-            }
-        ],
-        "jobs": [
-            {
-                title: "Purba Medinipur Employment Updates",
-                address: "District Center, Tamluk",
-                phone: "9732099999",
-                img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop",
-                desc: "Local employment notices, retail openings, recruitment updates, and career opportunities."
-            }
-        ],
-        "community": [
-            {
-                title: "Tamluk Social Welfare Trust",
-                address: "Tamluk",
-                phone: "9732100000",
-                img: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=600&auto=format&fit=crop",
-                desc: "Local clubs, charitable trusts, blood donation camps, and social welfare organizations."
-            }
-        ],
-        "events": [
-            {
-                title: "Bargabhima Temple Annual Fair",
-                address: "Bargabhima Temple Ground",
-                phone: "9732111111",
-                img: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=600&auto=format&fit=crop",
-                desc: "Updates on local cultural festivals, exhibitions, and community gatherings."
-            }
-        ],
-        "misc": [
-            {
-                title: "Tamluk Express Courier & Utility",
-                address: "Station Road, Tamluk",
-                phone: "9732122222",
-                img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600&auto=format&fit=crop",
-                desc: "General utility services, public notices, courier services, and municipal announcements."
-            }
-        ],
-        "list-business": [
-            {
-                title: "Free Business Listing Support",
-                address: "Tamluk City Guide Online",
-                phone: "9732133333",
-                img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=600&auto=format&fit=crop",
-                desc: "Register your shop, company, or service on the Tamluk City Directory completely free of charge."
-            }
-        ],
-        "shopping-retail": [
-            {
-                title: "Tamluk Main Market Garments",
-                address: "Main Market, Tamluk",
-                phone: "9732144444",
-                img: "https://images.unsplash.com/photo-1555529771-835f59fc5efe?q=80&w=600&auto=format&fit=crop",
-                desc: "Local clothing markets, garment stores, shopping arcades, and jewelry shops."
-            }
-        ],
-        "arts-culture": [
-            {
-                title: "Tamralipta Art & Drama Circle",
-                address: "Tamluk Town",
-                phone: "9732155555",
-                img: "https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?q=80&w=600&auto=format&fit=crop",
-                desc: "Local art circles, heritage preservation clubs, drama societies, and cultural centers."
-            }
-        ],
-        "clubs-organizations": [
-            {
-                title: "Tamluk Youth Athletic Association",
-                address: "Tamluk",
-                phone: "9732166666",
-                img: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=600&auto=format&fit=crop",
-                desc: "Youth clubs, athletic associations, library committees, and non-profit organizations."
-            }
-        ],
-        "community-pools": [
-            {
-                title: "Tamluk Municipal Swimming Complex",
-                address: "Near Stadium, Tamluk",
-                phone: "9732177777",
-                img: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=600&auto=format&fit=crop",
-                desc: "Swimming pools, sports coaching complexes, and water recreation centers."
-            }
-        ],
-        "education": [
-            {
-                title: "Tamralipta Mahavidyalaya",
-                address: "Tamluk",
-                phone: "03228-266020",
-                img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop",
-                desc: "Overview of local schools, colleges like Tamralipta Mahavidyalaya, and institutes."
-            }
-        ],
-        "government": [
-            {
-                title: "Tamluk Municipality & Collectorate",
-                address: "Tamluk Town",
-                phone: "03228-266025",
-                img: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?q=80&w=600&auto=format&fit=crop",
-                desc: "Tamluk Municipality Office, District Magistrate Office, and subdivision administrative offices."
-            }
-        ],
-        "local-grocers": [
-            {
-                title: "Fresh Daily Grocery Mart",
-                address: "Main Bazar, Tamluk",
-                phone: "9732188888",
-                img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?q=80&w=600&auto=format&fit=crop",
-                desc: "Supermarkets, wholesale grocery markets, daily vegetable vendors, and essentials."
-            }
-        ],
-        "local-news": [
-            {
-                title: "Tamluk Daily Press & News",
-                address: "Tamluk",
-                phone: "9732199999",
-                img: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=600&auto=format&fit=crop",
-                desc: "Daily local happenings, district reports, announcements, and press briefs."
-            }
-        ],
-        "local-parks": [
-            {
-                title: "Rupnarayan River Promenade & Park",
-                address: "Riverside, Tamluk",
-                phone: "9732200000",
-                img: "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?q=80&w=600&auto=format&fit=crop",
-                desc: "Public parks, riverside walkways along the Rupnarayan river, and open green spaces."
-            }
-        ],
-        "movies": [
-            {
-                title: "Tamluk Cinema & Entertainment Zone",
-                address: "Tamluk Town",
-                phone: "9732211111",
-                img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=600&auto=format&fit=crop",
-                desc: "Local cinema halls, movie screening schedules, and entertainment zones."
-            }
-        ],
-        "music": [
-            {
-                title: "Srutiranjan Music Academy & Sound",
-                address: "Tamluk",
-                phone: "9732222222",
-                img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop",
-                desc: "Music training academies, classical and vocal schools, and sound rental services."
-            }
-        ],
-        "sports-recreation": [
-            {
-                title: "Tamluk Stadium & Sports Complex",
-                address: "Stadium Road, Tamluk",
-                phone: "9732233333",
-                img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=600&auto=format&fit=crop",
-                desc: "Playgrounds, local sports clubs, cricket/football coaching camps, and fitness tracks."
-            }
-        ],
-        "state-parks": [
-            {
-                title: "Purba Medinipur Eco-Forest Park",
-                address: "District Outskirts",
-                phone: "9732244444",
-                img: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=600&auto=format&fit=crop",
-                desc: "Eco-parks, protected forestry areas, and nature tourism destinations."
-            }
-        ],
-        "personal": [
-            {
-                title: "Freelance Media & Photography",
-                address: "Tamluk",
-                phone: "9732255555",
-                img: "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?q=80&w=600&auto=format&fit=crop",
-                desc: "Independent consultants, photographers, event anchors, and freelance service providers."
-            }
-        ],
-        "professional-services": [
-            {
-                title: "Tax & CA Consultancy Services",
-                address: "Court Road, Tamluk",
-                phone: "9732266666",
-                img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop",
-                desc: "Chartered Accountants (CAs), tax consultants, company secretaries, and corporate legal advisors."
-            }
-        ],
-        "financial-services": [
-            {
-                title: "State Bank & Financial Hub",
-                address: "Main Road, Tamluk",
-                phone: "03228-266050",
-                img: "https://images.unsplash.com/photo-1501167786227-4cba6026d50f?q=80&w=600&auto=format&fit=crop",
-                desc: "Nationalized & private banks (SBI, PNB, HDFC, ICICI), ATMs, insurance offices."
-            }
-        ],
-        "legal-services": [
-            {
-                title: "Tamluk Bar Association & Legal Cell",
-                address: "Tamluk Court Compound",
-                phone: "9732277777",
-                img: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=600&auto=format&fit=crop",
-                desc: "Tamluk Court advocates, legal counselors, notary public services, and document registration."
-            }
-        ],
-        "wedding-events": [
-            {
-                title: "Royal Banquet & Marriage Garden",
-                address: "Bypass Road, Tamluk",
-                phone: "9732288888",
-                img: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop",
-                desc: "Banquet halls, marriage gardens, professional caterers, floral decorators, and event management."
-            }
-        ],
-        "cleaning-services": [
-            {
-                title: "CleanPro Tamluk Services",
-                address: "Tamluk Town",
-                phone: "9732299999",
-                img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=600&auto=format&fit=crop",
-                desc: "Professional house cleaning, water tank sanitation, commercial pest control."
-            }
-        ],
+        "computers": [{title: "IT Care Solutions", address: "Station Road, Tamluk", phone: "9732011111", img: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?q=80&w=600&auto=format&fit=crop", desc: "Laptop and Desktop sales, hardware repair."}],
+        "auto": [{title: "Medinipur Two-Wheeler Showroom", address: "NH-116B, Tamluk", phone: "9732022222", img: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?q=80&w=600&auto=format&fit=crop", desc: "Two-wheeler and four-wheeler showrooms."}],
+        "seniors": [{title: "Elderly Care & Home Nursing", address: "Tamluk Town", phone: "9732033333", img: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=600&auto=format&fit=crop", desc: "Elderly care services."}],
+        "kids": [{title: "Little Champs Play School", address: "Padumbasan, Tamluk", phone: "9732044444", img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=600&auto=format&fit=crop", desc: "Play schools and crèches."}],
+        "health-wellness": [{title: "FitLife Gym & Wellness", address: "Keranitola, Tamluk", phone: "9732055555", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop", desc: "Fitness gyms and yoga training."}],
+        "home-improvement": [{title: "Tamluk Hardware & Building Materials", address: "Bypass Road, Tamluk", phone: "9732066666", img: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=600&auto=format&fit=crop", desc: "Hardware stores."}],
+        "education-training": [{title: "Apex Coaching Institute", address: "Court Road, Tamluk", phone: "9732077777", img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600&auto=format&fit=crop", desc: "Coaching institutes."}],
+        "electronics": [{title: "Modern Electronics World", address: "Main Market, Tamluk", phone: "9732088888", img: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=600&auto=format&fit=crop", desc: "Multi-brand electronic showrooms."}],
+        "jobs": [{title: "Purba Medinipur Employment Updates", address: "District Center, Tamluk", phone: "9732099999", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop", desc: "Employment notices."}],
+        "community": [{title: "Tamluk Social Welfare Trust", address: "Tamluk", phone: "9732100000", img: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=600&auto=format&fit=crop", desc: "Social welfare organizations."}],
+        "events": [{title: "Bargabhima Temple Annual Fair", address: "Bargabhima Temple Ground", phone: "9732111111", img: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=600&auto=format&fit=crop", desc: "Cultural festivals."}],
+        "misc": [{title: "Tamluk Express Courier & Utility", address: "Station Road, Tamluk", phone: "9732122222", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600&auto=format&fit=crop", desc: "Courier services."}],
+        "list-business": [{title: "Free Business Listing Support", address: "Tamluk City Guide Online", phone: "9732133333", img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=600&auto=format&fit=crop", desc: "Directory listing support."}],
+        "shopping-retail": [{title: "Tamluk Main Market Garments", address: "Main Market, Tamluk", phone: "9732144444", img: "https://images.unsplash.com/photo-1555529771-835f59fc5efe?q=80&w=600&auto=format&fit=crop", desc: "Clothing markets."}],
+        "arts-culture": [{title: "Tamralipta Art & Drama Circle", address: "Tamluk Town", phone: "9732155555", img: "https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?q=80&w=600&auto=format&fit=crop", desc: "Art circles and drama societies."}],
+        "clubs-organizations": [{title: "Tamluk Youth Athletic Association", address: "Tamluk", phone: "9732166666", img: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=600&auto=format&fit=crop", desc: "Athletic associations."}],
+        "community-pools": [{title: "Tamluk Municipal Swimming Complex", address: "Near Stadium, Tamluk", phone: "9732177777", img: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=600&auto=format&fit=crop", desc: "Swimming complexes."}],
+        "education": [{title: "Tamralipta Mahavidyalaya", address: "Tamluk", phone: "03228-266020", img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop", desc: "Local college overview."}],
+        "government": [{title: "Tamluk Municipality & Collectorate", address: "Tamluk Town", phone: "03228-266025", img: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?q=80&w=600&auto=format&fit=crop", desc: "Municipality office."}],
+        "local-grocers": [{title: "Fresh Daily Grocery Mart", address: "Main Bazar, Tamluk", phone: "9732188888", img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?q=80&w=600&auto=format&fit=crop", desc: "Supermarkets."}],
+        "local-news": [{title: "Tamluk Daily Press & News", address: "Tamluk", phone: "9732199999", img: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=600&auto=format&fit=crop", desc: "Daily local news."}],
+        "local-parks": [{title: "Rupnarayan River Promenade & Park", address: "Riverside, Tamluk", phone: "9732200000", img: "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?q=80&w=600&auto=format&fit=crop", desc: "Riverside walkways."}],
+        "movies": [{title: "Tamluk Cinema & Entertainment Zone", address: "Tamluk Town", phone: "9732211111", img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=600&auto=format&fit=crop", desc: "Cinema halls."}],
+        "music": [{title: "Srutiranjan Music Academy & Sound", address: "Tamluk", phone: "9732222222", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop", desc: "Music academies."}],
+        "sports-recreation": [{title: "Tamluk Stadium & Sports Complex", address: "Stadium Road, Tamluk", phone: "9732233333", img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=600&auto=format&fit=crop", desc: "Playgrounds."}],
+        "state-parks": [{title: "Purba Medinipur Eco-Forest Park", address: "District Outskirts", phone: "9732244444", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=600&auto=format&fit=crop", desc: "Eco parks."}],
+        "personal": [{title: "Freelance Media & Photography", address: "Tamluk", phone: "9732255555", img: "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?q=80&w=600&auto=format&fit=crop", desc: "Photographers."}],
+        "professional-services": [{title: "Tax & CA Consultancy Services", address: "Court Road, Tamluk", phone: "9732266666", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop", desc: "Chartered accountants."}],
+        "financial-services": [{title: "State Bank & Financial Hub", address: "Main Road, Tamluk", phone: "03228-266050", img: "https://images.unsplash.com/photo-1501167786227-4cba6026d50f?q=80&w=600&auto=format&fit=crop", desc: "Banks and ATMs."}],
+        "legal-services": [{title: "Tamluk Bar Association & Legal Cell", address: "Tamluk Court Compound", phone: "9732277777", img: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=600&auto=format&fit=crop", desc: "Court advocates."}],
+        "wedding-events": [{title: "Royal Banquet & Marriage Garden", address: "Bypass Road, Tamluk", phone: "9732288888", img: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop", desc: "Banquet halls."}],
+        "cleaning-services": [{title: "CleanPro Tamluk Services", address: "Tamluk Town", phone: "9732299999", img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=600&auto=format&fit=crop", desc: "Cleaning services."}],
         "hospital-doctor": {
-            hospitals: [
-                {
-                    title: "Tamluk District Hospital", 
-                    sub: "Hospital", 
-                    phone: "03228-266200", 
-                    info1: "Address: Hospital Road, Tamluk", 
-                    info2: "Government multi-specialty hospital providing 24/7 emergency care, trauma services, and general surgeries.", 
-                    map: "Tamluk+District+Hospital"
-                },
-                {
-                    title: "Seva Nursing Home", 
-                    sub: "Nursing Home", 
-                    phone: "03228-265111", 
-                    info1: "Address: Kachari Road, Tamluk", 
-                    info2: "Private nursing home with modern diagnostic facilities, ICU support, and specialist doctors.", 
-                    map: "Seva+Nursing+Home+Tamluk"
-                }
-            ],
-            doctors: [
-                {
-                    title: "Dr. A. K. Das", 
-                    sub: "Medicine Specialist", 
-                    phone: "09434011111", 
-                    info1: "Chamber: Tamluk Town Clinic", 
-                    info2: "Consultation Hours: Mon-Sat (5 PM - 8 PM). Specializes in general medicine and chronic diseases.", 
-                    map: "Tamluk"
-                },
-                {
-                    title: "Dr. S. Mukherjee", 
-                    sub: "Child Specialist (Pediatrician)", 
-                    phone: "09434022222", 
-                    info1: "Chamber: Child Care Clinic, Kachari Road", 
-                    info2: "Consultation Hours: Tue, Thu, Sat (4 PM - 7 PM). Specializes in infant care and vaccination.", 
-                    map: "Tamluk"
-                }
-            ]
+            hospitals: [{title: "Tamluk District Hospital", sub: "Hospital", phone: "03228-266200", info1: "Address: Hospital Road, Tamluk", info2: "Government multi-specialty hospital.", map: "Tamluk+District+Hospital"}],
+            doctors: [{title: "Dr. A. K. Das", sub: "Medicine Specialist", phone: "09434011111", info1: "Chamber: Tamluk Town Clinic", info2: "Consultation Hours: Mon-Sat.", map: "Tamluk"}]
         },
         "district-municipality": {
-            district: [
-                {title: "Purba Medinipur District Headquarters", sub: "Location: Tamluk", info1: "", info2: "Administrative center overseeing subdivisions.", map: "Purba+Medinipur+District+Headquarters+Tamluk"}
-            ],
-            municipality: [
-                {title: "Tamluk Municipality Office", sub: "Address: Tamluk Town", info1: "Phone: 03228-266025", info2: "Updates: Ongoing civic developments.", map: "Tamluk+Municipality+Office"}
-            ],
-            police: [
-                {title: "Tamluk Police Station", sub: "Address: Court Road, Tamluk", info1: "Phone: 03228-266011", info2: "Updates: 24/7 security patrol.", map: "Tamluk+Police+Station"}
-            ]
+            district: [{title: "Purba Medinipur District Headquarters", sub: "Location: Tamluk", info1: "", info2: "Administrative center.", map: "Purba+Medinipur+District+Headquarters+Tamluk"}],
+            municipality: [{title: "Tamluk Municipality Office", sub: "Address: Tamluk Town", info1: "Phone: 03228-266025", info2: "Civic developments.", map: "Tamluk+Municipality+Office"}],
+            police: [{title: "Tamluk Police Station", sub: "Address: Court Road, Tamluk", info1: "Phone: 03228-266011", info2: "24/7 security patrol.", map: "Tamluk+Police+Station"}]
         },
         "train-bus": {
-            train: [
-                {title: "Tamluk to Howrah / Kolkata", sub: "Train Route", info1: "Route: Tamluk Junction -> Panskura -> Howrah", info2: "Regular local and express trains.", map: "Tamluk+Railway+Station"}
-            ],
-            bus: [
-                {title: "Tamluk to Kolkata (Esplanade)", sub: "Bus Route", info1: "Route: Via NH-16", info2: "Frequent direct express buses.", map: "Tamluk+Bus+Stand"}
-            ]
+            train: [{title: "Tamluk to Howrah / Kolkata", sub: "Train Route", info1: "Route: Tamluk Junction -> Panskura", info2: "Regular trains.", map: "Tamluk+Railway+Station"}],
+            bus: [{title: "Tamluk to Kolkata (Esplanade)", sub: "Bus Route", info1: "Route: Via NH-16", info2: "Frequent express buses.", map: "Tamluk+Bus+Stand"}]
         },
         "emergency": {
-            list: [
-                {title: "Police Control Room", sub: "Emergency", info1: "Call 112", info2: "24/7 law enforcement support.", tel1: "112", tel2: "03228266011"}
-            ]
+            list: [{title: "Police Control Room", sub: "Emergency", info1: "Call 112", info2: "24/7 law enforcement support.", tel1: "112", tel2: "03228266011"}]
         },
         "tourism": {
-            list: [
-                {
-                    title: "Bargabhima Temple", 
-                    sub: "Tourism", 
-                    info1: "Address: Bargabhima, Tamluk", 
-                    info2: "The famous local goddess temple.", 
-                    img: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmVfLxvo5gaLpcJ15IYd2av2nl8wEbVBZNTj2NB3Eq43brvRkQEOC61b_H5vWKGFEbn5MQpT7Iuj5FoAD9Q_906mkXQjNsxWvVZ8oxg8VyaLrivgTgF3UfBoKittYjaWBy6DBiN=s680-w680-h510-rw", 
-                    images: [
-                        "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk_dcEHCYAr7V6clsEiuJLkpPfz4U4KH2xETqrbHAC0jPLOfe1gHHJBjYo1v88vLrMExQVySu0maCnro4YxYYK9ueufhC7Swc3Lu3r-uEv9k6TSywGYHy35B9M9mTocYWGJberR=s680-w680-h510-rw",
-                        "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk7MiEkdATBSD2xPnRFjkdX8mbHXmKybHg6n1tM2WO3MlFvQdeGFXEhiOFEnLF_i4x2E7PnQ4neN_iCF2MbdEe4J5PCczdq1mHCS1v0JSZVlsfF39mcA7k1DtEP0JyKp_vFntm98kIwyPs=s680-w680-h510-rw",
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRsL5WEwFqzAaPJKUIM0aDF1YnEqZQSlTuPcomovQEXA6c8jJi2jpuIrbj&s=10"
-                    ],
-                    map: "Bargabhima+Temple+Tamluk"
-                }
-            ]
+            list: [{
+                title: "Bargabhima Temple", 
+                sub: "Tourism", 
+                info1: "Address: Bargabhima, Tamluk", 
+                info2: "The famous local goddess temple.", 
+                img: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmVfLxvo5gaLpcJ15IYd2av2nl8wEbVBZNTj2NB3Eq43brvRkQEOC61b_H5vWKGFEbn5MQpT7Iuj5FoAD9Q_906mkXQjNsxWvVZ8oxg8VyaLrivgTgF3UfBoKittYjaWBy6DBiN=s680-w680-h510-rw", 
+                map: "Bargabhima+Temple+Tamluk"
+            }]
         }
     };
 
     let isAdminLoggedIn = false;
     let currentShareText = "";
     let activeDetailedItemObject = null;
+    let currentBookingItemTitle = "";
+    let currentReminderItemTitle = "";
+    let currentQuizIndex = 0;
+    let quizScore = 0;
+
+    const quizQuestions = [
+        {
+            question: "What was the ancient name of Tamluk?",
+            options: ["Tamralipta", "Chandraketugarh", "Gaur", "Saptagram"],
+            correct: 0
+        },
+        {
+            question: "On the banks of which river is Tamluk situated?",
+            options: ["Hooghly", "Rupnarayan", "Subarnarekha", "Damodar"],
+            correct: 1
+        },
+        {
+            question: "Which prominent temple is famous in Tamluk?",
+            options: ["Kalighat", "Bargabhima Temple", "Tarapith", "Belur Math"],
+            correct: 1
+        }
+    ];
 
     const translations = {
         en: {
@@ -2303,96 +2238,17 @@
             headerSubtitle: "A Heritage Ancient City (Tamralipta)",
             helplineText: "📞 Helpline / Enquiry:",
             navHome: "Home",
-            navFavorites: "⭐ Favorites",
-            navBlood: "🩸 Blood Donors",
+            navBrowse: "Browse Categories",
+            navFavorites: "⭐ Favorites & Profile",
             navEventsBoard: "📅 Notice & Events",
-            navJobsBoard: "💼 Local Jobs",
-            navCityGallery: "🖼️ City Gallery",
-            navHospital: "Hospitals & Doctors",
-            navDistrict: "District & Municipality",
-            navTransport: "Train & Bus Routes",
             navEmergency: "Emergency Contacts",
-            navTourism: "Tourism",
             sec1Title: "Home (Introduction)",
             sec1Desc: "Tamluk is a historic city and the headquarters of the Purba Medinipur district in West Bengal. Situated on the banks of the Rupnarayan river, it is historically renowned as ancient Tamralipta, a major port and cultural center.",
-            globalSearchLbl: "Global Search Categories:",
-            globalSearchPlaceholder: "Search categories (e.g. Restaurants, Health, Auto)...",
-            browseCatTitle: "Browse Categories",
             feedbackTitle: "Send Your Feedback / Suggestions",
             feedbackName: "Your Name",
             feedbackText: "Write your feedback or missing info here...",
             feedbackBtn: "Submit Feedback",
             backHome: "⬅ Back to Home",
-            secRestTitle: "🍽️ Restaurants & Food in Tamluk",
-            secRestDesc: "Explore popular dining spots, menus, addresses, phone numbers, and maps:",
-            secRealTitle: "🏡 Real Estate in Tamluk",
-            secRealDesc: "Explore residential plots, commercial spaces, property details, and phone numbers:",
-            secPetsTitle: "🐶 Pets & Veterinary Care in Tamluk",
-            secPetsDesc: "Explore local vets, pet shops, animal care support, and phone numbers:",
-            secCompTitle: "💻 Computers & IT Services",
-            secCompDesc: "Explore computer sales, hardware repair, and maintenance shops:",
-            secAutoTitle: "🚗 Automobile Showrooms & Services",
-            secAutoDesc: "Explore vehicle showrooms, service centers, and spare parts:",
-            secSeniorsTitle: "👴 Seniors Support & Welfare",
-            secSeniorsDesc: "Explore elderly care services and senior welfare groups:",
-            secKidsTitle: "👶 Kids & Child Care",
-            secKidsDesc: "Explore play schools, crèches, and pediatric support:",
-            secHwTitle: "💚 Health & Wellness",
-            secHwDesc: "Explore fitness gyms, yoga centers, and diagnostic labs:",
-            secHiTitle: "🔨 Home Improvement & Hardware",
-            secHiDesc: "Explore hardware stores, tile suppliers, and building material shops:",
-            secEdtrTitle: "🎓 Education & Training",
-            secEdtrDesc: "Explore coaching institutes and training centers:",
-            secElecTitle: "📱 Electronics & Appliances",
-            secElecDesc: "Explore multi-brand electronic showrooms and mobile shops:",
-            secJobsTitle: "💼 Jobs & Careers",
-            secJobsDesc: "Explore local employment notices and career opportunities:",
-            secCommTitle: "🏭 Community Services",
-            secCommDesc: "Explore charitable trusts and social welfare organizations:",
-            secEventsTitle: "🎈 Events & Fairs",
-            secEventsDesc: "Explore local cultural festivals and exhibitions:",
-            secMiscTitle: "📦 Miscellaneous Services",
-            secMiscDesc: "Explore utility services and courier services:",
-            secListbusTitle: "✚ List Your Business FREE",
-            secListbusDesc: "Register your shop or company on the Tamluk City Directory:",
-            secShopTitle: "🛍️ Shopping & Retail",
-            secShopDesc: "Explore clothing markets, garment stores, and jewelry shops:",
-            secArtTitle: "🎨 Arts & Culture",
-            secArtDesc: "Explore art circles, heritage preservation clubs, and drama societies:",
-            secClubsTitle: "🤝 Clubs & Organizations",
-            secClubsDesc: "Explore youth clubs, athletic associations, and library committees:",
-            secPoolTitle: "🏊 Community Pools",
-            secPoolDesc: "Explore swimming pools and sports complexes:",
-            secEduTitle: "📚 Education Overview",
-            secEduDesc: "Explore local schools, colleges, and technical institutes:",
-            secGovTitle: "🏛️ Government Offices",
-            secGovDesc: "Explore Tamluk Municipality Office, DM Office, and subdivision offices:",
-            secGrocTitle: "🛒 Local Grocers",
-            secGrocDesc: "Explore supermarkets, wholesale markets, and daily vegetable vendors:",
-            secNewsTitle: "📰 Local News",
-            secNewsDesc: "Explore daily happenings, district reports, and press briefs:",
-            secParkTitle: "🌳 Local Parks",
-            secParkDesc: "Explore public parks and riverside walkways along the Rupnarayan river:",
-            secMovTitle: "🎬 Movies & Cinema",
-            secMovDesc: "Explore local cinema halls and entertainment zones:",
-            secMusTitle: "🎵 Music & Instruments",
-            secMusDesc: "Explore music training academies and sound rental services:",
-            secSportTitle: "⚽ Sports & Recreation",
-            secSportDesc: "Explore playgrounds, sports clubs, and fitness tracks:",
-            secSparksTitle: "🏔️ State Parks & Nature",
-            secSparksDesc: "Explore eco-parks and nature tourism destinations across Purba Medinipur:",
-            secPersTitle: "👤 Personal Services",
-            secPersDesc: "Explore independent consultants, photographers, and freelance providers:",
-            secProfTitle: "📈 Professional Services",
-            secProfDesc: "Explore Chartered Accountants (CAs), tax consultants, and advisors:",
-            secFinTitle: "💰 Financial Services",
-            secFinDesc: "Explore banks, ATMs, insurance offices, and micro-finance agencies:",
-            secLegalTitle: "⚖️ Legal Services",
-            secLegalDesc: "Explore Tamluk Court advocates, legal counselors, and notaries:",
-            secWedTitle: "💍 Wedding & Events",
-            secWedDesc: "Explore banquet halls, marriage gardens, caterers, and decorators:",
-            secCleanTitle: "🧹 Cleaning Services",
-            secCleanDesc: "Explore professional house cleaning, sanitation, and pest control:",
             sec5Title: "Hospitals & Doctors",
             hospitalSearchLbl: "Search Hospital or Doctor:",
             sec5Sub1: "Hospitals",
@@ -2428,96 +2284,17 @@
             headerSubtitle: "ঐতিহ্যমণ্ডিত প্রাচীন নগরী (তাম্রলিপ্ত)",
             helplineText: "📞 হেল্পলাইন / অনুসন্ধান:",
             navHome: "হোম",
+            navBrowse: "Browse Categories",
             navFavorites: "⭐ প্রিয় তালিকা",
-            navBlood: "🩸 রক্তদাতা",
             navEventsBoard: "📅 নোটিশ ও ইভেন্ট",
-            navJobsBoard: "💼 স্থানীয় চাকরি",
-            navCityGallery: "🖼️ সিটি গ্যালারি",
-            navHospital: "হাসপাতাল ও ডাক্তার",
-            navDistrict: "জেলা ও পৌরসভা",
-            navTransport: "ট্রেন ও বাস রুট",
             navEmergency: "জরুরি যোগাযোগ",
-            navTourism: "পর্যটন",
             sec1Title: "হোম (পরিচিতি)",
             sec1Desc: "তমলুক, পশ্চিমবঙ্গের পূর্ব মেদিনীপুর জেলার সদর দফতর এবং একটি ঐতিহাসিক শহর। রূপনারায়ণ নদের তীরে অবস্থিত এই শহরটি প্রাচীনকালে তাম্রলিপ্ত নামে পরিচিত ছিল এবং এর সমৃদ্ধ ঐতিহ্য রয়েছে।",
-            globalSearchLbl: "গ্লোবাল সার্চ বিভাগ:",
-            globalSearchPlaceholder: "বিভাগ খুঁজুন (যেমন- রেস্তোরাঁ, স্বাস্থ্য, অটো)...",
-            browseCatTitle: "বিভাগগুলি ব্রাউজ করুন",
             feedbackTitle: "আপনার মতামত / পরামর্শ পাঠান",
             feedbackName: "আপনার নাম",
             feedbackText: "এখানে আপনার মতামত বা অনুপস্থিত তথ্য লিখুন...",
             feedbackBtn: "মতামত জমা দিন",
             backHome: "⬅ হোমে ফিরে যান",
-            secRestTitle: "🍽️ তমলুকের রেস্তোরাঁ ও খাবার",
-            secRestDesc: "জনপ্রিয় ডাইনিং স্পট, মেনু, ঠিকানা, ফোন নম্বর এবং মানচিত্র অন্বেষণ করুন:",
-            secRealTitle: "🏡 তমলুকের রিয়েল এস্টেট",
-            secRealDesc: "আবাসিক প্লট, বাণিজ্যিক স্থান, সম্পত্তির বিবরণ এবং ফোন নম্বর অন্বেষণ করুন:",
-            secPetsTitle: "🐶 পোষা প্রাণী ও ভেটেরিনারি যত্ন",
-            secPetsDesc: "স্থানীয় ভেট, পেট শপ এবং পশুপালনের সহায়তা অন্বেষণ করুন:",
-            secCompTitle: "💻 কম্পিউটার ও আইটি পরিষেবা",
-            secCompDesc: "কম্পিউটার বিক্রয়, হার্ডওয়্যার মেরামত এবং রক্ষণাবেক্ষণ দোকান:",
-            secAutoTitle: "🚗 অটোমোবাইল শোরুম ও পরিষেবা",
-            secAutoDesc: "যানবাহন শোরুম, পরিষেবা কেন্দ্র এবং খুচরা যন্ত্রাংশ:",
-            secSeniorsTitle: "👴 প্রবীণ সহায়তা ও কল্যাণ",
-            secSeniorsDesc: "বয়স্কদের যত্ন পরিষেবা এবং প্রবীণ নাগরিক কল্যাণ গোষ্ঠী:",
-            secKidsTitle: "👶 শিশু ও শিশু যত্ন",
-            secKidsDesc: "প্লে স্কুল, ক্রেশ এবং পেডিয়াট্রিক সহায়তা:",
-            secHwTitle: "💚 স্বাস্থ্য ও সুস্থতা",
-            secHwDesc: "ফিটনেস জিম, যোগ কেন্দ্র এবং ডায়াগনস্টিক ল্যাব:",
-            secHiTitle: "🔨 গৃহ উন্নতি ও হার্ডওয়্যার",
-            secHiDesc: "হার্ডওয়্যার স্টোর, টাইলস সরবরাহকারী এবং বিল্ডিং মেটেরিয়াল শপ:",
-            secEdtrTitle: "🎓 শিক্ষা ও প্রশিক্ষণ",
-            secEdtrDesc: "কোচিং ইনস্টিটিউট এবং প্রশিক্ষণ কেন্দ্র:",
-            secElecTitle: "📱 ইলেকট্রনিক্স ও যন্ত্রপাতি",
-            secElecDesc: "মাল্টি-ব্র্যান্ড ইলেকট্রনিক্স শোরুম এবং মোবাইল শপ:",
-            secJobsTitle: "💼 চাকরি ও ক্যারিয়ার",
-            secJobsDesc: "স্থানীয় কর্মসংস্থান বিজ্ঞপ্তি এবং ক্যারিয়ারের সুযোগ:",
-            secCommTitle: "🏭 সম্প্রদায় পরিষেবা",
-            secCommDesc: "দাতব্য ট্রাস্ট এবং সমাজকল্যাণ সংস্থা:",
-            secEventsTitle: "🎈 ইভেন্ট ও মেলা",
-            secEventsDesc: "স্থানীয় সাংস্কৃতিক উৎসব এবং প্রদর্শনী:",
-            secMiscTitle: "📦 বিবিধ পরিষেবা",
-            secMiscDesc: "ইউটিলিটি পরিষেবা এবং কুরিয়ার পরিষেবা:",
-            secListbusTitle: "✚ আপনার ব্যবসা বিনামূল্যে তালিকাভুক্ত করুন",
-            secListbusDesc: "তমলুক সিটি ডিরেক্টরিতে আপনার দোকান বা কোম্পানি নিবন্ধন করুন:",
-            secShopTitle: "🛍️ কেনাকাটা ও খুচরা বিক্রি",
-            secShopDesc: "পোশাকের বাজার, গার্মেন্টস এবং জুয়েলারি শপ:",
-            secArtTitle: "🎨 শিল্প ও সংস্কৃতি",
-            secArtDesc: "শিল্প বৃত্ত, ঐতিহ্য সংরক্ষণ ক্লাব এবং নাট্য সমাজ:",
-            secClubsTitle: "🤝 ক্লাব ও সংগঠন",
-            secClubsDesc: "যুব ক্লাব, অ্যাথলেটিক অ্যাসোসিয়েশন এবং লাইব্রেরি কমিটি:",
-            secPoolTitle: "🏊 কমুনিটি পুল",
-            secPoolDesc: "সাঁতারের পুল এবং স্পোর্টস কমপ্লেক্স:",
-            secEduTitle: "📚 শিক্ষা সংক্ষিপ্ত বিবরণ",
-            secEduDesc: "স্থানীয় স্কুল, কলেজ এবং কারিগরি ইনস্টিটিউট:",
-            secGovTitle: "🏛️ সরকারি অফিস",
-            secGovDesc: "তমলুক পৌরসভা অফিস, ডিএম অফিস এবং মহকুমা অফিস:",
-            secGrocTitle: "🛒 স্থানীয় মুদি দোকান",
-            secGrocDesc: "সুপারমারকেট, পাইকারি বাজার এবং দৈনিক শাকসবজি বিক্রেতা:",
-            secNewsTitle: "📰 স্থানীয় খবর",
-            secNewsDesc: "দৈনিক ঘটনা, জেলা রিপোর্ট এবং প্রেস ব্রিফ:",
-            secParkTitle: "🌳 স্থানীয় পার্ক",
-            secParkDesc: "রূপনারায়ণ নদের পাড়ে পাবলিক পার্ক এবং ওয়াকওয়ে:",
-            secMovTitle: "🎬 সিনেমা ও বিনোদন",
-            secMovDesc: "স্থানীয় সিনেমা হল এবং বিনোদন জোন:",
-            secMusTitle: "🎵 সঙ্গীত ও যন্ত্রাংশ",
-            secMusDesc: "সঙ্গীত প্রশিক্ষণ একাডেমি এবং সাউন্ড রেন্টাল পরিষেবা:",
-            secSportTitle: "⚽ খেলাধুলা ও বিনোদন",
-            secSportDesc: "খেলার মাঠ, স্পোর্টস ক্লাব এবং ফিটনেস ট্র্যাক:",
-            secSparksTitle: "🏔️ স্টেট পার্ক ও প্রকৃতি",
-            secSparksDesc: "পূর্ব মেদিনীপুর জুড়ে ইকো-পার্ক এবং প্রকৃতি পর্যটন গন্তব্য:",
-            secPersTitle: "👤 ব্যক্তিগত পরিষেবা",
-            secPersDesc: "স্বাধীন পরামর্শদাতা, ফটোগ্রাফার এবং ফ্রিল্যান্স প্রদানকারী:",
-            secProfTitle: "📈 পেশাদার পরিষেবা",
-            secProfDesc: "চার্টার্ড অ্যাকাউন্ট্যান্টস (CA), ট্যাক্স কনসালটেন্ট এবং উপদেষ্টা:",
-            secFinTitle: "💰 আর্থিক পরিষেবা",
-            secFinDesc: "ব্যাংক, এটিএম, বীমা অফিস এবং মাইক্রো-ফাইন্যান্স এজেন্সি:",
-            secLegalTitle: "⚖️ আইনি পরিষেবা",
-            secLegalDesc: "তমলুক কোর্ট অ্যাডভোকেট, আইনি পরামর্শদাতা এবং নোটারি:",
-            secWedTitle: "💍 বিয়ে ও অনুষ্ঠান",
-            secWedDesc: "বিয়ে বাড়ি, ম্যারেজ গার্ডেন, ক্যাটারার এবং ডেকোরেটর:",
-            secCleanTitle: "🧹 পরিচ্ছন্নতা পরিষেবা",
-            secCleanDesc: "পেশাদার বাড়ি পরিষ্কার, স্যানিটেশন এবং পেস্ট কন্ট্রোল:",
             sec5Title: "হাসপাতাল ও ডাক্তার",
             hospitalSearchLbl: "হাসপাতাল বা ডাক্তার খুঁজুন:",
             sec5Sub1: "হাসপাতাল",
@@ -2553,101 +2330,22 @@
             headerSubtitle: "एक ऐतिहासिक प्राचीन नगरी (ताम्रलिप्त)",
             helplineText: "📞 हेल्पलाइन / पूछताछ:",
             navHome: "होम",
+            navBrowse: "Browse Categories",
             navFavorites: "⭐ पसंदीदा",
-            navBlood: "🩸 रक्तदाता",
             navEventsBoard: "📅 सूचना और कार्यक्रम",
-            navJobsBoard: "💼 स्थानीय नौकरियां",
-            navCityGallery: "🖼️ सिटी गैलरी",
-            navHospital: "अस्पताल और डॉक्टर",
-            navDistrict: "जिला और नगरपालिका",
-            navTransport: "ट्रेन और बस रूट",
             navEmergency: "आपातकालीन संपर्क",
-            navTourism: "पर्यटन",
             sec1Title: "होम (परिचय)",
             sec1Desc: "तमलुक पश्चिम बंगाल के पूर्व मेदिनीपुर जिले का मुख्यालय और एक ऐतिहासिक शहर है। रूपनारायण नदी के तट पर स्थित यह शहर प्राचीन ताम्रलिप्त के रूप में अपनी संस्कृति और विरासत के लिए जाना जाता है।",
-            globalSearchLbl: "ग्लोबल सर्च श्रेणियां:",
-            globalSearchPlaceholder: "श्रेणियां खोजें (जैसे- रेस्टोरेंट, स्वास्थ्य, ऑटो)...",
-            browseCatTitle: "श्रेणियां ब्राउज़ करें",
             feedbackTitle: "अपनी प्रतिक्रिया / सुझाव भेजें",
             feedbackName: "आपका नाम",
             feedbackText: "यहाँ अपनी प्रतिक्रिया या छूटी हुई जानकारी लिखें...",
             feedbackBtn: "प्रतिक्रिया जमा करें",
             backHome: "⬅ होम पर वापस जाएं",
-            secRestTitle: "🍽️ तमलुक में रेस्टोरेंट और भोजन",
-            secRestDesc: "लोकप्रिय डाइनिंग स्पॉट, मेनू, पते, फोन नंबर और मानचित्र देखें:",
-            secRealTitle: "🏡 तमलुक में रियल एस्टेट",
-            secRealDesc: "आवासीय भूखंड, व्यावसायिक स्थान, संपत्ति विवरण और फोन नंबर देखें:",
-            secPetsTitle: "🐶 पालतू जानवर और पशु चिकित्सा देखभाल",
-            secPetsDesc: "स्थानीय पशु चिकित्सक, पेट शॉप और पशु देखभाल सहायता देखें:",
-            secCompTitle: "💻 कंप्यूटर और आईटी सेवाएं",
-            secCompDesc: "कंप्यूटर बिक्री, हार्डवेयर मरम्मत और रखरखाव की दुकानें:",
-            secAutoTitle: "🚗 ऑटोमोबाइल शोरूम और सेवाएं",
-            secAutoDesc: "वाहन शोरूम, सर्विस सेंटर और स्पेयर पार्ट्स:",
-            secSeniorsTitle: "👴 वरिष्ठ नागरिक सहायता और कल्याण",
-            secSeniorsDesc: "बुजुर्गों की देखभाल सेवाएं और वरिष्ठ नागरिक कल्याण समूह:",
-            secKidsTitle: "👶 बच्चे और बाल देखभाल",
-            secKidsDesc: "प्ले स्कूल, क्रेच और बाल चिकित्सा सहायता:",
-            secHwTitle: "💚 स्वास्थ्य और कल्याण",
-            secHwDesc: "फिटनेस जिम, योग केंद्र और डायग्नोस्टिक लैब:",
-            secHiTitle: "🔨 गृह सुधार और हार्डवेयर",
-            secHiDesc: "हार्डवेयर स्टोर, टाइल्स आपूर्तिकर्ता और निर्माण सामग्री की दुकानें:",
-            secEdtrTitle: "🎓 शिक्षा और प्रशिक्षण",
-            secEdtrDesc: "कोचिंग संस्थान और प्रशिक्षण केंद्र:",
-            secElecTitle: "📱 इलेक्ट्रॉनिक्स और उपकरण",
-            secElecDesc: "मल्टी-ब्रांड इलेक्ट्रॉनिक शोरूम और मोबाइल दुकानें:",
-            secJobsTitle: "💼 नौकरियां और करियर",
-            secJobsDesc: "स्थानीय रोजगार सूचनाएं और करियर के अवसर:",
-            secCommTitle: "🏭 सामुदायिक सेवाएं",
-            secCommDesc: "दान ट्रस्ट और समाज कल्याण संगठन:",
-            secEventsTitle: "🎈 कार्यक्रम और मेले",
-            secEventsDesc: "स्थानीय सांस्कृतिक उत्सव और प्रदर्शनियां:",
-            secMiscTitle: "📦 विविध सेवाएं",
-            secMiscDesc: "यूटिलिटी सेवाएं और कूरियर सेवाएं:",
-            secListbusTitle: "✚ अपना व्यवसाय मुफ़्त में सूचीबद्ध करें",
-            secListbusDesc: "तमुल्क सिटी डायरेक्टरी में अपनी दुकान या कंपनी रजिस्टर करें:",
-            secShopTitle: "🛍️ खरीदारी और खुदरा",
-            secShopDesc: "कपड़ों के बाजार, गारमेंट्स स्टोर और आभूषण की दुकानें:",
-            secArtTitle: "🎨 कला और संस्कृति",
-            secArtDesc: "कला मंडल, विरासत संरक्षण क्लब और नाटक समाज:",
-            secClubsTitle: "🤝 क्लब और संगठन",
-            secClubsDesc: "युवा क्लब, एथलेटिक एसोसिएशन और पुस्तकालय समितियां:",
-            secPoolTitle: "कम्युनिटी पूल",
-            secPoolDesc: "तैराकी के पूल और खेल परिसर:",
-            secEduTitle: "📚 शिक्षा अवलोकन",
-            secEduDesc: "स्थानीय स्कूल, कॉलेज और तकनीकी संस्थान:",
-            secGovTitle: "🏛️ सरकारी कार्यालय",
-            secGovDesc: "तमलुक नगरपालिका कार्यालय, डीएम कार्यालय और उपखंड कार्यालय:",
-            secGrocTitle: "🛒 स्थानीय किराने की दुकानें",
-            secGrocDesc: "सुपरमार्केट, थोक बाजार और दैनिक सब्जी विक्रेता:",
-            secNewsTitle: "📰 स्थानीय समाचार",
-            secNewsDesc: "दैनिक घटनाएं, जिला रिपोर्ट और प्रेस विज्ञप्ति:",
-            secParkTitle: "🌳 स्थानीय पार्क",
-            secParkDesc: "रूपनारायण नदी के किनारे पब्लिक पार्क और वॉकवे:",
-            secMovTitle: "🎬 फिल्में और सिनेमा",
-            secMovDesc: "स्थानीय सिनेमा हॉल और मनोरंजन क्षेत्र:",
-            secMusTitle: "🎵 संगीत और वाद्य यंत्र",
-            secMusDesc: "संगीत प्रशिक्षण अकादमी और साउंड रेंटल सेवाएं:",
-            secSportTitle: "⚽ खेल और मनोरंजन",
-            secSportDesc: "खेल के मैदान, स्पोर्ट्स क्लब और फिटनेस ट्रैक:",
-            secSparksTitle: "🏔️ स्टेट पार्क और प्रकृति",
-            secSparksDesc: "पूर्व मेदिनीपुर में इको-पार्क और प्रकृति पर्यटन गंतव्य:",
-            secPersTitle: "👤 व्यक्तिगत सेवाएं",
-            secPersDesc: "स्वतंत्र सलाहकार, फोटोग्राफर और फ्रीलांस प्रदाता:",
-            secProfTitle: "📈 व्यावसायिक सेवाएं",
-            secProfDesc: "चार्टर्ड अकाउंटेंट्स (CA), टैक्स कंसलटेंट और सलाहकार:",
-            secFinTitle: "💰 वित्तीय सेवाएं",
-            secFinDesc: "बैंक, एटीएम, बीमा कार्यालय और सूक्ष्म-वित्त एजेंसियां:",
-            secLegalTitle: "⚖️ कानूनी सेवाएं",
-            secLegalDesc: "तमलुक कोर्ट के वकील, कानूनी सलाहकार और नोटरी:",
-            secWedTitle: "💍 विवाह और कार्यक्रम",
-            secWedDesc: "बैंक्वेट हॉल, मैरिज गार्डन, कैटरर्स और डेकोरेटर:",
-            secCleanTitle: "🧹 सफाई सेवाएं",
-            secCleanDesc: "पेशेवर घर की सफाई, स्वच्छता और कीट नियंत्रण:",
             sec5Title: "अस्पताल और डॉक्टर",
             hospitalSearchLbl: "अस्पताल या डॉक्टर खोजें:",
             sec5Sub1: "अस्पताल",
             sec5Sub2: "विशेषज्ञ डॉक्टर",
-            sec6Title: "पूर्व मेदिनीपुर जिला और नगरपालिका अपडेट",
+            sec6Title: "पूर्व मेদিনীपुर जिला और नगरपालिका अपडेट",
             sec6Desc: "पूर्व मेदिनीपुर जिला, नगरपालिका और पुलिस थानों से संबंधित प्रशासनिक अपडेट।",
             districtSearchLbl: "प्रशासन, नगरपालिका या पुलिस स्टेशन खोजें:",
             sec6Sub1: "जिला प्रशासन",
@@ -2678,10 +2376,18 @@
         loadDataFromStorage();
         renderAllSections();
         setLanguage('en');
-        if (localStorage.getItem("theme") === "dark") {
+        
+        // Auto Theme Sync
+        if (!localStorage.getItem("theme")) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.setAttribute("data-theme", "dark");
+                document.getElementById("themeBtn").innerText = "☀️ Light";
+            }
+        } else if (localStorage.getItem("theme") === "dark") {
             document.body.setAttribute("data-theme", "dark");
             document.getElementById("themeBtn").innerText = "☀️ Light";
         }
+
         fetchWeather();
         startFestivalCountdown();
     }
@@ -2736,10 +2442,13 @@
         renderEmergency();
         renderTourism();
         renderFavorites();
+        renderMyBookings();
+        renderMyReminders();
     }
 
     function renderCategories() {
-        let grid = document.getElementById("categoryGrid");
+        let grid = document.getElementById("fullCategoryGrid");
+        if(!grid) return;
         grid.innerHTML = "";
 
         db.categories.forEach((cat, index) => {
@@ -2760,64 +2469,18 @@
         });
     }
 
-    function saveAdminCategory() {
-        let editIndex = document.getElementById("editIndex-category").value;
-        let name = document.getElementById("catInputName").value;
-        let icon = document.getElementById("catInputIcon").value || "📁";
-        let target = document.getElementById("catInputTarget").value;
-        let desc = document.getElementById("catInputDesc").value;
+    function filterFullCategories() {
+        let input = document.getElementById('fullCategorySearch').value.toLowerCase();
+        let cards = document.querySelectorAll('#fullCategoryGrid .category-card');
 
-        if(!name.trim()) {
-            alert("Category name cannot be empty!");
-            return;
-        }
-
-        let newCat = {
-            name: name,
-            icon: icon,
-            action: "section",
-            target: target || name.toLowerCase().replace(/[^a-z0-9]/g, '-') + "-section",
-            desc: desc
-        };
-
-        if(editIndex === "") {
-            db.categories.push(newCat);
-            alert("New category added successfully!");
-        } else {
-            db.categories[parseInt(editIndex)] = newCat;
-            alert("Category updated successfully!");
-            document.getElementById("editIndex-category").value = "";
-            document.getElementById("formTitle-category").innerText = "➕ Add New Category";
-        }
-
-        document.getElementById("catInputName").value = "";
-        document.getElementById("catInputIcon").value = "";
-        document.getElementById("catInputTarget").value = "";
-        document.getElementById("catInputDesc").value = "";
-
-        saveDataToStorage();
-        renderCategories();
-    }
-
-    function editCategory(index) {
-        let cat = db.categories[index];
-        document.getElementById("editIndex-category").value = index;
-        document.getElementById("formTitle-category").innerText = `✏️ Edit Category (Index: ${index})`;
-        document.getElementById("catInputName").value = cat.name;
-        document.getElementById("catInputIcon").value = cat.icon;
-        document.getElementById("catInputTarget").value = cat.target || "";
-        document.getElementById("catInputDesc").value = cat.desc || "";
-
-        document.getElementById("admin-panel-category").scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function deleteCategory(index) {
-        if(confirm("Are you sure you want to delete this category?")) {
-            db.categories.splice(index, 1);
-            saveDataToStorage();
-            renderCategories();
-            alert("Category deleted successfully!");
-        }
+        cards.forEach(card => {
+            let name = card.getAttribute('data-name') || "";
+            if (name.includes(input)) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
     }
 
     function renderBloodDonors() {
@@ -2864,61 +2527,6 @@
         renderBloodDonors();
     }
 
-    function saveAdminBloodDonor() {
-        let editIndex = document.getElementById("editIndex-blood-bank").value;
-        let title = document.getElementById("itemTitle-blood-bank").value;
-        let group = document.getElementById("itemSub-blood-bank").value;
-        let location = document.getElementById("itemInfo1-blood-bank").value;
-        let phone = document.getElementById("itemPhone-blood-bank").value;
-        let desc = document.getElementById("itemInfo2-blood-bank").value;
-
-        if(!title.trim() || !group.trim()) {
-            alert("Donor name and blood group cannot be empty!");
-            return;
-        }
-
-        let newDonor = { title, sub: group, info1: location, phone, desc };
-        if(!db["blood-bank"]) db["blood-bank"] = [];
-
-        if(editIndex === "") {
-            db["blood-bank"].push(newDonor);
-            alert("Blood donor added successfully!");
-        } else {
-            db["blood-bank"][parseInt(editIndex)] = newDonor;
-            alert("Blood donor updated successfully!");
-            document.getElementById("editIndex-blood-bank").value = "";
-        }
-
-        document.getElementById("itemTitle-blood-bank").value = "";
-        document.getElementById("itemSub-blood-bank").value = "";
-        document.getElementById("itemInfo1-blood-bank").value = "";
-        document.getElementById("itemPhone-blood-bank").value = "";
-        document.getElementById("itemInfo2-blood-bank").value = "";
-
-        saveDataToStorage();
-        renderBloodDonors();
-    }
-
-    function editBloodDonor(index) {
-        let donor = db["blood-bank"][index];
-        document.getElementById("editIndex-blood-bank").value = index;
-        document.getElementById("itemTitle-blood-bank").value = donor.title;
-        document.getElementById("itemSub-blood-bank").value = donor.sub;
-        document.getElementById("itemInfo1-blood-bank").value = donor.info1;
-        document.getElementById("itemPhone-blood-bank").value = donor.phone;
-        document.getElementById("itemInfo2-blood-bank").value = donor.desc;
-        document.getElementById("admin-panel-blood-bank").scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function deleteBloodDonor(index) {
-        if(confirm("Are you sure you want to delete this donor?")) {
-            db["blood-bank"].splice(index, 1);
-            saveDataToStorage();
-            renderBloodDonors();
-            alert("Donor deleted successfully!");
-        }
-    }
-
     function renderNoticeEvents() {
         let grid = document.getElementById("noticeEventsGrid");
         if(!grid) return;
@@ -2940,65 +2548,13 @@
                     <p><strong>Venue:</strong> ${item.info1}</p>
                     <p><strong>Contact:</strong> <a href="tel:${item.phone}" style="color:inherit; text-decoration:none;">📞 ${item.phone}</a></p>
                     <p>${item.desc}</p>
+                    <div class="card-actions" onclick="event.stopPropagation();">
+                        <button class="btn-action btn-reminder" onclick="openReminderModal('${item.title}')">⏰ Set Reminder</button>
+                    </div>
                     ${adminButtons}
                 </div>
             `;
         });
-    }
-
-    function saveAdminNoticeEvent() {
-        let editIndex = document.getElementById("editIndex-events-board").value;
-        let title = document.getElementById("itemTitle-events-board").value;
-        let sub = document.getElementById("itemSub-events-board").value;
-        let info1 = document.getElementById("itemInfo1-events-board").value;
-        let phone = document.getElementById("itemPhone-events-board").value;
-        let desc = document.getElementById("itemInfo2-events-board").value;
-
-        if(!title.trim()) {
-            alert("Title cannot be empty!");
-            return;
-        }
-
-        let newItem = { title, sub, info1, phone, desc };
-        if(!db["events-board"]) db["events-board"] = [];
-
-        if(editIndex === "") {
-            db["events-board"].push(newItem);
-            alert("Notice/Event added successfully!");
-        } else {
-            db["events-board"][parseInt(editIndex)] = newItem;
-            alert("Notice/Event updated successfully!");
-            document.getElementById("editIndex-events-board").value = "";
-        }
-
-        document.getElementById("itemTitle-events-board").value = "";
-        document.getElementById("itemSub-events-board").value = "";
-        document.getElementById("itemInfo1-events-board").value = "";
-        document.getElementById("itemPhone-events-board").value = "";
-        document.getElementById("itemInfo2-events-board").value = "";
-
-        saveDataToStorage();
-        renderNoticeEvents();
-    }
-
-    function editNoticeEvent(index) {
-        let item = db["events-board"][index];
-        document.getElementById("editIndex-events-board").value = index;
-        document.getElementById("itemTitle-events-board").value = item.title;
-        document.getElementById("itemSub-events-board").value = item.sub;
-        document.getElementById("itemInfo1-events-board").value = item.info1;
-        document.getElementById("itemPhone-events-board").value = item.phone;
-        document.getElementById("itemInfo2-events-board").value = item.desc;
-        document.getElementById("admin-panel-events-board").scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function deleteNoticeEvent(index) {
-        if(confirm("Are you sure you want to delete this notice/event?")) {
-            db["events-board"].splice(index, 1);
-            saveDataToStorage();
-            renderNoticeEvents();
-            alert("Notice/Event deleted successfully!");
-        }
     }
 
     function renderLocalJobs() {
@@ -3032,61 +2588,6 @@
         });
     }
 
-    function saveAdminJobOpening() {
-        let editIndex = document.getElementById("editIndex-job-board").value;
-        let title = document.getElementById("itemTitle-job-board").value;
-        let sub = document.getElementById("itemSub-job-board").value;
-        let info1 = document.getElementById("itemInfo1-job-board").value;
-        let phone = document.getElementById("itemPhone-job-board").value;
-        let desc = document.getElementById("itemInfo2-job-board").value;
-
-        if(!title.trim()) {
-            alert("Job title cannot be empty!");
-            return;
-        }
-
-        let newJob = { title, sub, info1, phone, desc };
-        if(!db["job-board"]) db["job-board"] = [];
-
-        if(editIndex === "") {
-            db["job-board"].push(newJob);
-            alert("Job posting added successfully!");
-        } else {
-            db["job-board"][parseInt(editIndex)] = newJob;
-            alert("Job posting updated successfully!");
-            document.getElementById("editIndex-job-board").value = "";
-        }
-
-        document.getElementById("itemTitle-job-board").value = "";
-        document.getElementById("itemSub-job-board").value = "";
-        document.getElementById("itemInfo1-job-board").value = "";
-        document.getElementById("itemPhone-job-board").value = "";
-        document.getElementById("itemInfo2-job-board").value = "";
-
-        saveDataToStorage();
-        renderLocalJobs();
-    }
-
-    function editLocalJob(index) {
-        let job = db["job-board"][index];
-        document.getElementById("editIndex-job-board").value = index;
-        document.getElementById("itemTitle-job-board").value = job.title;
-        document.getElementById("itemSub-job-board").value = job.sub;
-        document.getElementById("itemInfo1-job-board").value = job.info1;
-        document.getElementById("itemPhone-job-board").value = job.phone;
-        document.getElementById("itemInfo2-job-board").value = job.desc;
-        document.getElementById("admin-panel-job-board").scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function deleteLocalJob(index) {
-        if(confirm("Are you sure you want to delete this job posting?")) {
-            db["job-board"].splice(index, 1);
-            saveDataToStorage();
-            renderLocalJobs();
-            alert("Job posting deleted successfully!");
-        }
-    }
-
     function renderCityGallery() {
         let grid = document.getElementById("cityGalleryGrid");
         if(!grid) return;
@@ -3110,55 +2611,6 @@
                 </div>
             `;
         });
-    }
-
-    function saveAdminGalleryPhoto() {
-        let editIndex = document.getElementById("editIndex-city-gallery").value;
-        let title = document.getElementById("itemTitle-city-gallery").value;
-        let img = document.getElementById("itemImage-city-gallery").value;
-        let desc = document.getElementById("itemInfo2-city-gallery").value;
-
-        if(!title.trim() || !img.trim()) {
-            alert("Title and image URL cannot be empty!");
-            return;
-        }
-
-        let newPhoto = { title, img, desc };
-        if(!db["city-gallery"]) db["city-gallery"] = [];
-
-        if(editIndex === "") {
-            db["city-gallery"].push(newPhoto);
-            alert("Photo added to gallery successfully!");
-        } else {
-            db["city-gallery"][parseInt(editIndex)] = newPhoto;
-            alert("Photo updated successfully!");
-            document.getElementById("editIndex-city-gallery").value = "";
-        }
-
-        document.getElementById("itemTitle-city-gallery").value = "";
-        document.getElementById("itemImage-city-gallery").value = "";
-        document.getElementById("itemInfo2-city-gallery").value = "";
-
-        saveDataToStorage();
-        renderCityGallery();
-    }
-
-    function editCityPhoto(index) {
-        let photo = db["city-gallery"][index];
-        document.getElementById("editIndex-city-gallery").value = index;
-        document.getElementById("itemTitle-city-gallery").value = photo.title;
-        document.getElementById("itemImage-city-gallery").value = photo.img;
-        document.getElementById("itemInfo2-city-gallery").value = photo.desc;
-        document.getElementById("admin-panel-city-gallery").scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function deleteCityPhoto(index) {
-        if(confirm("Are you sure you want to delete this photo?")) {
-            db["city-gallery"].splice(index, 1);
-            saveDataToStorage();
-            renderCityGallery();
-            alert("Photo deleted successfully!");
-        }
     }
 
     function submitPollVote() {
@@ -3195,101 +2647,6 @@
         db[sectionKey].forEach((item, index) => {
             grid.innerHTML += createUniversalCardHtml(item, sectionKey, null, index);
         });
-    }
-
-    function saveAdminGenericItem(sectionKey) {
-        let editIndex = document.getElementById(`editIndex-${sectionKey}`).value;
-        let title = document.getElementById(`itemTitle-${sectionKey}`).value;
-        let address = document.getElementById(`itemInfo1-${sectionKey}`).value;
-        let phone = document.getElementById(`itemPhone-${sectionKey}`) ? document.getElementById(`itemPhone-${sectionKey}`).value : "";
-        let img = document.getElementById(`itemImage-${sectionKey}`).value;
-        let info2 = document.getElementById(`itemInfo2-${sectionKey}`).value;
-
-        if(!title.trim()) {
-            alert("Title cannot be empty!");
-            return;
-        }
-
-        let newItem = {
-            title: title,
-            address: address || "Tamluk Town",
-            phone: phone || "",
-            img: img || "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop",
-            desc: info2 || "Details available for " + title
-        };
-
-        if(sectionKey === "restaurants-food") {
-            let menuArray = [];
-            if(info2.trim()) {
-                let parts = info2.split(",");
-                parts.forEach(p => {
-                    let subParts = p.split("-");
-                    if(subParts.length === 2) {
-                        menuArray.push({ item: subParts[0].trim(), price: subParts[1].trim() });
-                    } else {
-                        menuArray.push({ item: p.trim(), price: "₹150" });
-                    }
-                });
-            } else {
-                menuArray = [{ item: "Special Dish", price: "₹150" }];
-            }
-            newItem = {
-                title: title,
-                address: address || "Tamluk Town",
-                phone: phone || "",
-                img: img || "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop",
-                menu: menuArray
-            };
-        }
-
-        if(!db[sectionKey]) db[sectionKey] = [];
-
-        if(editIndex === "") {
-            db[sectionKey].push(newItem);
-            alert("Item added successfully!");
-        } else {
-            db[sectionKey][parseInt(editIndex)] = newItem;
-            alert("Item updated successfully!");
-            document.getElementById(`editIndex-${sectionKey}`).value = "";
-            document.getElementById(`formTitle-${sectionKey}`).innerText = `➕ Add New Item`;
-        }
-
-        document.getElementById(`itemTitle-${sectionKey}`).value = "";
-        document.getElementById(`itemInfo1-${sectionKey}`).value = "";
-        if(document.getElementById(`itemPhone-${sectionKey}`)) document.getElementById(`itemPhone-${sectionKey}`).value = "";
-        document.getElementById(`itemImage-${sectionKey}`).value = "";
-        document.getElementById(`itemInfo2-${sectionKey}`).value = "";
-
-        saveDataToStorage();
-        renderGenericSection(sectionKey);
-    }
-
-    function editGenericItem(sectionKey, index) {
-        let item = db[sectionKey][index];
-        document.getElementById(`editIndex-${sectionKey}`).value = index;
-        document.getElementById(`formTitle-${sectionKey}`).innerText = `✏️ Edit Item (Index: ${index})`;
-        document.getElementById(`itemTitle-${sectionKey}`).value = item.title;
-        document.getElementById(`itemInfo1-${sectionKey}`).value = item.address || "";
-        if(document.getElementById(`itemPhone-${sectionKey}`)) document.getElementById(`itemPhone-${sectionKey}`).value = item.phone || "";
-        document.getElementById(`itemImage-${sectionKey}`).value = item.img || "";
-        
-        if(sectionKey === "restaurants-food" && item.menu) {
-            let menuStr = item.menu.map(m => `${m.item} - ${m.price}`).join(", ");
-            document.getElementById(`itemInfo2-${sectionKey}`).value = menuStr;
-        } else {
-            document.getElementById(`itemInfo2-${sectionKey}`).value = item.desc || "";
-        }
-
-        document.getElementById(`admin-panel-${sectionKey}`).scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function deleteGenericItem(sectionKey, index) {
-        if(confirm("Are you sure you want to delete this item?")) {
-            db[sectionKey].splice(index, 1);
-            saveDataToStorage();
-            renderGenericSection(sectionKey);
-            alert("Item deleted successfully!");
-        }
     }
 
     function renderHospitalDoctor() {
@@ -3358,6 +2715,11 @@
         db["tourism"].list.forEach((item, index) => {
             grid.innerHTML += createUniversalCardHtml(item, 'tourism', 'list', index);
         });
+    }
+
+    function switchFavTab(tabId) {
+        document.querySelectorAll('.fav-tab-content').forEach(el => el.style.display = 'none');
+        document.getElementById(tabId).style.display = 'block';
     }
 
     function renderFavorites() {
@@ -3436,6 +2798,69 @@
         }
     }
 
+    function renderMyBookings() {
+        let grid = document.getElementById("myBookingsGrid");
+        if(!grid) return;
+        grid.innerHTML = "";
+        let bookings = JSON.parse(localStorage.getItem("tamluk_my_bookings")) || [];
+
+        if(bookings.length === 0) {
+            grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; opacity: 0.7;">No appointments or table bookings yet.</p>`;
+            return;
+        }
+
+        bookings.forEach((b, idx) => {
+            grid.innerHTML += `
+                <div class="card">
+                    <h4>📅 Booking: ${b.itemTitle}</h4>
+                    <p><strong>Name:</strong> ${b.name}</p>
+                    <p><strong>Phone:</strong> ${b.phone}</p>
+                    <p><strong>Date & Time:</strong> ${b.date} at ${b.time}</p>
+                    <p><strong>Notes:</strong> ${b.notes || 'None'}</p>
+                    <button class="btn-action btn-delete" onclick="cancelBooking(${idx})" style="margin-top:10px;">Cancel Booking</button>
+                </div>
+            `;
+        });
+    }
+
+    function cancelBooking(idx) {
+        let bookings = JSON.parse(localStorage.getItem("tamluk_my_bookings")) || [];
+        bookings.splice(idx, 1);
+        localStorage.setItem("tamluk_my_bookings", JSON.stringify(bookings));
+        renderMyBookings();
+        alert("Booking cancelled successfully.");
+    }
+
+    function renderMyReminders() {
+        let grid = document.getElementById("myRemindersGrid");
+        if(!grid) return;
+        grid.innerHTML = "";
+        let reminders = JSON.parse(localStorage.getItem("tamluk_my_reminders")) || [];
+
+        if(reminders.length === 0) {
+            grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; opacity: 0.7;">No active reminders saved.</p>`;
+            return;
+        }
+
+        reminders.forEach((r, idx) => {
+            grid.innerHTML += `
+                <div class="card">
+                    <h4>⏰ Reminder: ${r.itemTitle}</h4>
+                    <p><strong>Scheduled For:</strong> ${r.date} at ${r.time}</p>
+                    <button class="btn-action btn-delete" onclick="removeReminder(${idx})" style="margin-top:10px;">Remove Reminder</button>
+                </div>
+            `;
+        });
+    }
+
+    function removeReminder(idx) {
+        let reminders = JSON.parse(localStorage.getItem("tamluk_my_reminders")) || [];
+        reminders.splice(idx, 1);
+        localStorage.setItem("tamluk_my_reminders", JSON.stringify(reminders));
+        renderMyReminders();
+        alert("Reminder removed.");
+    }
+
     function createUniversalCardHtml(item, sectionKey, subCategory, index) {
         let adminButtons = "";
         if (isAdminLoggedIn) {
@@ -3484,11 +2909,19 @@
             let menuItemsObjJson = JSON.stringify(item.menu).replace(/"/g, '&quot;');
             actionsHtml += `<button class="btn-action btn-menu" onclick="openMenuModal('${item.title} Menu', '${menuItemsObjJson}')">📜 Menu</button>`;
         }
-        if(item.map) {
-            actionsHtml += `<a href="https://maps.google.com/?q=${item.map}" target="_blank" class="btn-action btn-map">🗺️ Map</a>`;
-        } else if(item.title) {
-            actionsHtml += `<a href="https://maps.google.com/?q=${item.title.replace(/\s+/g, '+')}+Tamluk" target="_blank" class="btn-action btn-map">🗺️ Map</a>`;
+        
+        let mapQuery = item.map || (item.title ? item.title.replace(/\s+/g, '+') + "+Tamluk" : "Tamluk");
+        actionsHtml += `<button class="btn-action btn-map" onclick="openMapModal('${item.title || 'Location'}', '${mapQuery}')">🗺️ Map</button>`;
+        
+        if(sectionKey === 'restaurants-food' || sectionKey === 'hospital-doctor' || sectionKey === 'hotels') {
+            actionsHtml += `<button class="btn-action btn-book" onclick="openBookingModal('${item.title}')">📅 Book</button>`;
         }
+
+        // Text-to-Speech Audio Guide Button
+        let textToSpeak = `${item.title}. ${item.sub || ''} ${item.address || item.info1 || ''} ${item.desc || item.info2 || ''}`;
+        let encodedSpeech = encodeURIComponent(textToSpeak);
+        actionsHtml += `<button class="btn-action btn-speak" onclick="playAudioGuide('${encodedSpeech}')">🔊 Listen</button>`;
+
         if(item.phone) {
             actionsHtml += `<a href="tel:${item.phone}" class="btn-action btn-call">📞 Call</a>`;
             actionsHtml += `<a href="https://api.whatsapp.com/send?phone=91${item.phone}&text=Hello,%20inquiry%20via%20Tamluk%20City%20Guide." target="_blank" class="btn-action btn-whatsapp">💬 WhatsApp</a>`;
@@ -3518,6 +2951,249 @@
                 ${adminButtons}
             </div>
         `;
+    }
+
+    /* Text-to-Speech Audio Guide Function */
+    function playAudioGuide(encodedText) {
+        if (!('speechSynthesis' in window)) {
+            alert("Text-to-speech is not supported by your browser.");
+            return;
+        }
+        window.speechSynthesis.cancel();
+        let text = decodeURIComponent(encodedText);
+        let utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1.0;
+        window.speechSynthesis.speak(utterance);
+    }
+
+    /* Emergency SOS WhatsApp GPS Sharer */
+    function triggerSosWhatsApp(e) {
+        e.preventDefault();
+        if (!navigator.geolocation) {
+            alert("Geolocation is not supported by your browser");
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(position => {
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+            let mapUrl = `https://maps.google.com/?q=${lat},${lon}`;
+            let msg = `🚨 EMERGENCY SOS! I need immediate assistance. My current GPS Location is: ${mapUrl}`;
+            let waUrl = `https://api.whatsapp.com/send?phone=919832000000&text=${encodeURIComponent(msg)}`;
+            window.open(waUrl, '_blank');
+        }, () => {
+            alert("Unable to retrieve location. Please check GPS settings.");
+        });
+    }
+
+    /* Business Promo Modal Functions */
+    function openPromoModal() {
+        document.getElementById("promoModal").style.display = "block";
+    }
+    function closePromoModal() {
+        document.getElementById("promoModal").style.display = "none";
+    }
+    function submitPromoRequest() {
+        let shop = document.getElementById("promoShopName").value.trim();
+        let phone = document.getElementById("promoContact").value.trim();
+        let desc = document.getElementById("promoDesc").value.trim();
+        if(!shop || !phone || !desc) {
+            alert("Please fill in all promo fields.");
+            return;
+        }
+        alert(`Thank you, ${shop}! Your business promotion request has been submitted for review.`);
+        document.getElementById("promoShopName").value = "";
+        document.getElementById("promoContact").value = "";
+        document.getElementById("promoDesc").value = "";
+        closePromoModal();
+    }
+
+    /* City Quiz Game Functions */
+    function openQuizModal() {
+        currentQuizIndex = 0;
+        quizScore = 0;
+        document.getElementById("quizResultMsg").innerText = "";
+        document.getElementById("quizModal").style.display = "block";
+        loadQuizQuestion();
+    }
+    function closeQuizModal() {
+        document.getElementById("quizModal").style.display = "none";
+    }
+    function loadQuizQuestion() {
+        if(currentQuizIndex < quizQuestions.length) {
+            let q = quizQuestions[currentQuizIndex];
+            document.getElementById("quizQuestion").innerText = `Question ${currentQuizIndex + 1}: ${q.question}`;
+            let optContainer = document.getElementById("quizOptions");
+            optContainer.innerHTML = "";
+            q.options.forEach((opt, idx) => {
+                optContainer.innerHTML += `<button class="admin-btn-submit" onclick="submitQuizAnswer(${idx})" style="text-align: left; background: var(--search-bg); color: var(--text-color); border: 1px solid var(--border-color);">${opt}</button>`;
+            });
+        } else {
+            document.getElementById("quizQuestion").innerText = "Quiz Completed!";
+            document.getElementById("quizOptions").innerHTML = "";
+            document.getElementById("quizResultMsg").innerText = `🎉 You scored ${quizScore} out of ${quizQuestions.length}!`;
+        }
+    }
+    function submitQuizAnswer(selectedIdx) {
+        let q = quizQuestions[currentQuizIndex];
+        if(selectedIdx === q.correct) {
+            quizScore++;
+            alert("Correct Answer! 🎉");
+        } else {
+            alert("Incorrect Answer.");
+        }
+        currentQuizIndex++;
+        loadQuizQuestion();
+    }
+
+    /* Live Map Modal functions */
+    function openMapModal(title, query) {
+        document.getElementById("mapModalTitle").innerText = `🗺️ Location: ${title}`;
+        document.getElementById("mapModalSubtitle").innerText = `Navigating to location in Tamluk`;
+        document.getElementById("mapQueryCoords").innerText = title;
+        document.getElementById("mapExternalLink").href = `https://maps.google.com/?q=${query}`;
+        document.getElementById("mapModal").style.display = "block";
+    }
+
+    function closeMapModal() {
+        document.getElementById("mapModal").style.display = "none";
+    }
+
+    /* Appointment / Table Booking Modal functions */
+    function openBookingModal(itemTitle) {
+        currentBookingItemTitle = itemTitle;
+        document.getElementById("bookingModalTitle").innerText = `📅 Book Appointment / Table`;
+        document.getElementById("bookingItemNameSubtitle").innerText = `For: ${itemTitle}`;
+        let userProfile = JSON.parse(localStorage.getItem("tamluk_user_profile")) || {};
+        if(userProfile.name) document.getElementById("bookingUserName").value = userProfile.name;
+        if(userProfile.contact) document.getElementById("bookingUserPhone").value = userProfile.contact;
+        document.getElementById("bookingModal").style.display = "block";
+    }
+
+    function closeBookingModal() {
+        document.getElementById("bookingModal").style.display = "none";
+    }
+
+    function confirmBookingSubmission() {
+        let name = document.getElementById("bookingUserName").value.trim();
+        let phone = document.getElementById("bookingUserPhone").value.trim();
+        let date = document.getElementById("bookingDate").value;
+        let time = document.getElementById("bookingTime").value;
+        let notes = document.getElementById("bookingNotes").value.trim();
+
+        if(!name || !phone || !date || !time) {
+            alert("Please fill in all required booking fields.");
+            return;
+        }
+
+        let bookings = JSON.parse(localStorage.getItem("tamluk_my_bookings")) || [];
+        bookings.push({ itemTitle: currentBookingItemTitle, name, phone, date, time, notes });
+        localStorage.setItem("tamluk_my_bookings", JSON.stringify(bookings));
+
+        alert(`Success! Your booking for "${currentBookingItemTitle}" on ${date} at ${time} has been registered.`);
+        closeBookingModal();
+        renderMyBookings();
+    }
+
+    /* Reminder Modal functions */
+    function openReminderModal(itemTitle) {
+        currentReminderItemTitle = itemTitle;
+        document.getElementById("reminderItemTitle").innerText = `Event: ${itemTitle}`;
+        document.getElementById("reminderModal").style.display = "block";
+    }
+
+    function closeReminderModal() {
+        document.getElementById("reminderModal").style.display = "none";
+    }
+
+    function confirmReminderSave() {
+        let date = document.getElementById("reminderDate").value;
+        let time = document.getElementById("reminderTime").value;
+
+        if(!date || !time) {
+            alert("Please select reminder date and time.");
+            return;
+        }
+
+        let reminders = JSON.parse(localStorage.getItem("tamluk_my_reminders")) || [];
+        reminders.push({ itemTitle: currentReminderItemTitle, date, time });
+        localStorage.setItem("tamluk_my_reminders", JSON.stringify(reminders));
+
+        alert(`Reminder successfully set for "${currentReminderItemTitle}" on ${date} at ${time}!`);
+        closeReminderModal();
+        renderMyReminders();
+    }
+
+    /* Profile Modal functions */
+    function openProfileModal() {
+        let profile = JSON.parse(localStorage.getItem("tamluk_user_profile")) || {};
+        if(profile.name) document.getElementById("profileName").value = profile.name;
+        if(profile.contact) document.getElementById("profileContact").value = profile.contact;
+        if(profile.bloodGroup) document.getElementById("profileBloodGroup").value = profile.bloodGroup;
+        document.getElementById("profileModal").style.display = "block";
+    }
+
+    function closeProfileModal() {
+        document.getElementById("profileModal").style.display = "none";
+    }
+
+    function saveUserProfile() {
+        let name = document.getElementById("profileName").value.trim();
+        let contact = document.getElementById("profileContact").value.trim();
+        let bloodGroup = document.getElementById("profileBloodGroup").value;
+
+        let profile = { name, contact, bloodGroup };
+        localStorage.setItem("tamluk_user_profile", JSON.stringify(profile));
+        alert("Profile updated successfully!");
+        closeProfileModal();
+    }
+
+    /* AI City Assistant Chat Functions */
+    function toggleAiChat() {
+        let box = document.getElementById("aiChatBox");
+        if(box.style.display === "flex") {
+            box.style.display = "none";
+        } else {
+            box.style.display = "flex";
+            document.getElementById("aiChatInput").focus();
+        }
+    }
+
+    function handleAiKeyPress(e) {
+        if(e.key === 'Enter') {
+            sendAiMessage();
+        }
+    }
+
+    function sendAiMessage() {
+        let inputField = document.getElementById("aiChatInput");
+        let query = inputField.value.trim();
+        if(!query) return;
+
+        let chatBody = document.getElementById("aiChatBody");
+        chatBody.innerHTML += `<div class="ai-msg user">${query}</div>`;
+        inputField.value = "";
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        setTimeout(() => {
+            let response = generateAiResponse(query);
+            chatBody.innerHTML += `<div class="ai-msg bot">${response}</div>`;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, 500);
+    }
+
+    function generateAiResponse(q) {
+        q = q.toLowerCase();
+        if(q.includes('hospital') || q.includes('doctor') || q.includes('medical')) {
+            return "For medical emergencies, Tamluk District Hospital is located on Hospital Road (Phone: 03228-266200). Seva Nursing Home is also available on Kachari Road.";
+        } else if(q.includes('temple') || q.includes('tourism') || q.includes('bargabhima')) {
+            return "The historic Bargabhima Temple is the top tourist landmark in Tamluk, representing ancient Tamralipta heritage.";
+        } else if(q.includes('train') || q.includes('bus') || q.includes('travel')) {
+            return "Tamluk has frequent train connections via Tamluk Junction to Panskura & Howrah, and direct express buses to Kolkata (Esplanade) via NH-16.";
+        } else if(q.includes('blood') || q.includes('donor')) {
+            return "You can check our Emergency Blood Donor Directory section for verified voluntary blood donors across A+, B+, O+, and other groups.";
+        } else {
+            return "That's a great question about Tamluk! You can browse our categories or check emergency contacts, restaurants, and local notices across the app.";
+        }
     }
 
     function openMultiPhotoModal(imagesJson) {
@@ -3776,6 +3452,8 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
             if(sectionId === 'favorites') {
                 renderFavorites();
+                renderMyBookings();
+                renderMyReminders();
             }
         }
     }
@@ -3951,76 +3629,18 @@
     }
 
     window.onclick = function(event) {
-        let imageModal = document.getElementById("imageModal");
-        let multiPhotoModal = document.getElementById("multiPhotoModal");
-        let shareModal = document.getElementById("shareModal");
-        let authModal = document.getElementById("authModal");
-        let menuModal = document.getElementById("menuModal");
-        let detailsModal = document.getElementById("detailsModal");
-
-        if (event.target === imageModal) {
-            closeModal();
-        }
-        if (event.target === multiPhotoModal) {
-            closeMultiPhotoModal();
-        }
-        if (event.target === shareModal) {
-            closeShareModal();
-        }
-        if (event.target === authModal) {
-            closeAuthModal();
-        }
-        if (event.target === menuModal) {
-            closeMenuModal();
-        }
-        if (event.target === detailsModal) {
-            closeDetailsModal();
-        }
-    }
-
-    function filterGlobalCategories() {
-        let input = document.getElementById('globalSearch').value.toLowerCase();
-        let cards = document.querySelectorAll('#categoryGrid .category-card');
-
-        cards.forEach(card => {
-            let name = card.getAttribute('data-name') || "";
-            if (name.includes(input)) {
-                card.style.display = "flex";
-            } else {
-                card.style.display = "none";
-            }
-        });
-    }
-
-    function filterSection(sectionId, inputId) {
-        let input = document.getElementById(inputId).value.toLowerCase();
-        let cards = document.querySelectorAll('#' + sectionId + ' .card');
-
-        cards.forEach(card => {
-            let name = card.getAttribute('data-name') || "";
-            let text = card.innerText.toLowerCase();
-            if (name.includes(input) || text.includes(input)) {
-                card.style.display = "flex";
-            } else {
-                card.style.display = "none";
-            }
-        });
-    }
-
-    function filterTransport() {
-        let input = document.getElementById('transportSearch').value.toLowerCase();
-        let trainCards = document.querySelectorAll('#train-grid .card');
-        let busCards = document.querySelectorAll('#bus-grid .card');
-
-        [...trainCards, ...busCards].forEach(card => {
-            let name = card.getAttribute('data-name') || "";
-            let text = card.innerText.toLowerCase();
-            if (name.includes(input) || text.includes(input)) {
-                card.style.display = "flex";
-            } else {
-                card.style.display = "none";
-            }
-        });
+        if (event.target === document.getElementById("imageModal")) closeModal();
+        if (event.target === document.getElementById("multiPhotoModal")) closeMultiPhotoModal();
+        if (event.target === document.getElementById("shareModal")) closeShareModal();
+        if (event.target === document.getElementById("authModal")) closeAuthModal();
+        if (event.target === document.getElementById("menuModal")) closeMenuModal();
+        if (event.target === document.getElementById("detailsModal")) closeDetailsModal();
+        if (event.target === document.getElementById("mapModal")) closeMapModal();
+        if (event.target === document.getElementById("bookingModal")) closeBookingModal();
+        if (event.target === document.getElementById("reminderModal")) closeReminderModal();
+        if (event.target === document.getElementById("profileModal")) closeProfileModal();
+        if (event.target === document.getElementById("promoModal")) closePromoModal();
+        if (event.target === document.getElementById("quizModal")) closeQuizModal();
     }
 
     function changeLanguage() {
@@ -4036,97 +3656,17 @@
             document.getElementById("header-subtitle").innerText = t.headerSubtitle;
             document.getElementById("helpline-text").innerText = t.helplineText;
             document.getElementById("nav-home").innerText = t.navHome;
+            document.getElementById("nav-browse").innerText = t.navBrowse;
             document.getElementById("nav-favorites").innerText = t.navFavorites;
-            document.getElementById("nav-blood").innerText = t.navBlood;
             document.getElementById("nav-events-board").innerText = t.navEventsBoard;
-            document.getElementById("nav-jobs-board").innerText = t.navJobsBoard;
-            document.getElementById("nav-city-gallery").innerText = t.navCityGallery;
-            document.getElementById("nav-hospital").innerText = t.navHospital;
-            document.getElementById("nav-district").innerText = t.navDistrict;
-            document.getElementById("nav-transport").innerText = t.navTransport;
             document.getElementById("nav-emergency").innerText = t.navEmergency;
-            document.getElementById("nav-tourism").innerText = t.navTourism;
             document.getElementById("sec1-title").innerText = t.sec1Title;
             document.getElementById("sec1-desc").innerText = t.sec1Desc;
-            document.getElementById("global-search-lbl").innerText = t.globalSearchLbl;
-            document.getElementById("globalSearch").placeholder = t.globalSearchPlaceholder;
-            document.getElementById("browse-cat-title").innerText = t.browseCatTitle;
             document.getElementById("sec1-feedback-title").innerText = t.feedbackTitle;
             document.getElementById("feedbackName").placeholder = t.feedbackName;
             document.getElementById("feedbackText").placeholder = t.feedbackText;
             document.getElementById("feedback-btn").innerText = t.feedbackBtn;
             
-            document.getElementById("sec-rest-title").innerText = t.secRestTitle;
-            document.getElementById("sec-rest-desc").innerText = t.secRestDesc;
-            document.getElementById("sec-real-title").innerText = t.secRealTitle;
-            document.getElementById("sec-real-desc").innerText = t.secRealDesc;
-            document.getElementById("sec-pets-title").innerText = t.secPetsTitle;
-            document.getElementById("sec-pets-desc").innerText = t.secPetsDesc;
-            document.getElementById("sec-comp-title").innerText = t.secCompTitle;
-            document.getElementById("sec-comp-desc").innerText = t.secCompDesc;
-            document.getElementById("sec-auto-title").innerText = t.secAutoTitle;
-            document.getElementById("sec-auto-desc").innerText = t.secAutoDesc;
-            document.getElementById("sec-seniors-title").innerText = t.secSeniorsTitle;
-            document.getElementById("sec-seniors-desc").innerText = t.secSeniorsDesc;
-            document.getElementById("sec-kids-title").innerText = t.secKidsTitle;
-            document.getElementById("sec-kids-desc").innerText = t.secKidsDesc;
-            document.getElementById("sec-hw-title").innerText = t.secHwTitle;
-            document.getElementById("sec-hw-desc").innerText = t.secHwDesc;
-            document.getElementById("sec-hi-title").innerText = t.secHiTitle;
-            document.getElementById("sec-hi-desc").innerText = t.secHiDesc;
-            document.getElementById("sec-edtr-title").innerText = t.secEdtrTitle;
-            document.getElementById("sec-edtr-desc").innerText = t.secEdtrDesc;
-            document.getElementById("sec-elec-title").innerText = t.secElecTitle;
-            document.getElementById("sec-elec-desc").innerText = t.secElecDesc;
-            document.getElementById("sec-jobs-title").innerText = t.secJobsTitle;
-            document.getElementById("sec-jobs-desc").innerText = t.secJobsDesc;
-            document.getElementById("sec-comm-title").innerText = t.secCommTitle;
-            document.getElementById("sec-comm-desc").innerText = t.secCommDesc;
-            document.getElementById("sec-events-title").innerText = t.secEventsTitle;
-            document.getElementById("sec-events-desc").innerText = t.secEventsDesc;
-            document.getElementById("sec-misc-title").innerText = t.secMiscTitle;
-            document.getElementById("sec-misc-desc").innerText = t.secMiscDesc;
-            document.getElementById("sec-listbus-title").innerText = t.secListbusTitle;
-            document.getElementById("sec-listbus-desc").innerText = t.secListbusDesc;
-            document.getElementById("sec-shop-title").innerText = t.secShopTitle;
-            document.getElementById("sec-shop-desc").innerText = t.secShopDesc;
-            document.getElementById("sec-art-title").innerText = t.secArtTitle;
-            document.getElementById("sec-art-desc").innerText = t.secArtDesc;
-            document.getElementById("sec-clubs-title").innerText = t.secClubsTitle;
-            document.getElementById("sec-clubs-desc").innerText = t.secClubsDesc;
-            document.getElementById("sec-pool-title").innerText = t.secPoolTitle;
-            document.getElementById("sec-pool-desc").innerText = t.secPoolDesc;
-            document.getElementById("sec-edu-title").innerText = t.secEduTitle;
-            document.getElementById("sec-edu-desc").innerText = t.secEduDesc;
-            document.getElementById("sec-gov-title").innerText = t.secGovTitle;
-            document.getElementById("sec-gov-desc").innerText = t.secGovDesc;
-            document.getElementById("sec-groc-title").innerText = t.secGrocTitle;
-            document.getElementById("sec-groc-desc").innerText = t.secGrocDesc;
-            document.getElementById("sec-news-title").innerText = t.secNewsTitle;
-            document.getElementById("sec-news-desc").innerText = t.secNewsDesc;
-            document.getElementById("sec-park-title").innerText = t.secParkTitle;
-            document.getElementById("sec-park-desc").innerText = t.secParkDesc;
-            document.getElementById("sec-mov-title").innerText = t.secMovTitle;
-            document.getElementById("sec-mov-desc").innerText = t.secMovDesc;
-            document.getElementById("sec-mus-title").innerText = t.secMusTitle;
-            document.getElementById("sec-mus-desc").innerText = t.secMusDesc;
-            document.getElementById("sec-sport-title").innerText = t.secSportTitle;
-            document.getElementById("sec-sport-desc").innerText = t.secSportDesc;
-            document.getElementById("sec-sparks-title").innerText = t.secSparksTitle;
-            document.getElementById("sec-sparks-desc").innerText = t.secSparksDesc;
-            document.getElementById("sec-pers-title").innerText = t.secPersTitle;
-            document.getElementById("sec-pers-desc").innerText = t.secPersDesc;
-            document.getElementById("sec-prof-title").innerText = t.secProfTitle;
-            document.getElementById("sec-prof-desc").innerText = t.secProfDesc;
-            document.getElementById("sec-fin-title").innerText = t.secFinTitle;
-            document.getElementById("sec-fin-desc").innerText = t.secFinDesc;
-            document.getElementById("sec-legal-title").innerText = t.secLegalTitle;
-            document.getElementById("sec-legal-desc").innerText = t.secLegalDesc;
-            document.getElementById("sec-wed-title").innerText = t.secWedTitle;
-            document.getElementById("sec-wed-desc").innerText = t.secWedDesc;
-            document.getElementById("sec-clean-title").innerText = t.secCleanTitle;
-            document.getElementById("sec-clean-desc").innerText = t.secCleanDesc;
-
             document.getElementById("sec5-title").innerText = t.sec5Title;
             document.getElementById("hospital-search-lbl").innerText = t.hospitalSearchLbl;
             document.getElementById("sec5-sub1").innerText = t.sec5Sub1;
