@@ -883,8 +883,8 @@
     <div class="controls-container">
         <button class="admin-btn" onclick="openPromoModal()" style="background:#f59e0b;">📢 Business Promo</button>
         <button class="admin-btn" onclick="openQuizModal()" style="background:#8b5cf6;">🧠 City Quiz</button>
+        <!-- User Login moved to top right side -->
         <button class="admin-btn" onclick="handleUserAuthClick()" id="userAuthNavBtn">👤 User Login</button>
-        <button class="admin-btn" onclick="handleAdminClick()" id="adminNavBtn">🔐 Admin Login</button>
         <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
         <select id="languageSelect" class="lang-selector" onchange="changeLanguage()">
             <option value="en" selected>English</option>
@@ -899,42 +899,14 @@
         <h2 id="sec1-title">Home (Introduction)</h2>
         <p id="sec1-desc">Tamluk is a historic city and the headquarters of the Purba Medinipur district in West Bengal. Situated on the banks of the Rupnarayan river, it is historically renowned as ancient Tamralipta, a major port and cultural center.</p>
 
-        <!-- Advanced All-India & Local Public Transport Route Finder -->
+        <!-- Advanced Custom Transport Route Finder -->
         <div class="feature-box">
             <h3 style="margin-top: 0; font-size: 1.1rem;">🚆 Advanced All-India & Local Public Transport Route Finder</h3>
-            <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 10px;">Select your origin and destination to view intermediate stops, transport modes, distance, and direct navigation:</p>
+            <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 10px;">Type complete origin and destination, then click Search Route:</p>
             <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
-                <select id="routeOrigin" style="flex:1; padding: 8px; border-radius: 6px; background: var(--section-bg); color: var(--text-color); border: 1px solid var(--border-color);">
-                    <optgroup label="Tamluk Local">
-                        <option value="Tamluk Station">Tamluk Railway Station</option>
-                        <option value="Bargabhima Temple">Bargabhima Temple</option>
-                        <option value="Tamluk Hospital">Tamluk District Hospital</option>
-                        <option value="Court Road">Court Road</option>
-                    </optgroup>
-                    <optgroup label="Major Indian Hubs">
-                        <option value="Kolkata">Kolkata (Howrah / Esplanade)</option>
-                        <option value="Delhi">New Delhi</option>
-                        <option value="Mumbai">Mumbai</option>
-                        <option value="Bangalore">Bengaluru</option>
-                        <option value="Chennai">Chennai</option>
-                    </optgroup>
-                </select>
-                <select id="routeDestination" style="flex:1; padding: 8px; border-radius: 6px; background: var(--section-bg); color: var(--text-color); border: 1px solid var(--border-color);">
-                    <optgroup label="Tamluk Local">
-                        <option value="Bargabhima Temple">Bargabhima Temple</option>
-                        <option value="Main Market">Main Market</option>
-                        <option value="Tamluk Hospital">Tamluk District Hospital</option>
-                        <option value="Bypass Road">Bypass Road</option>
-                    </optgroup>
-                    <optgroup label="Major Indian Hubs">
-                        <option value="Kolkata">Kolkata (Howrah / Esplanade)</option>
-                        <option value="Delhi">New Delhi</option>
-                        <option value="Mumbai">Mumbai</option>
-                        <option value="Bangalore">Bengaluru</option>
-                        <option value="Chennai">Chennai</option>
-                    </optgroup>
-                </select>
-                <button class="admin-btn-submit" onclick="findTransportRouteAdvanced()" style="padding: 8px 16px; margin: 0;">Find Route & Fare</button>
+                <input type="text" id="customOrigin" placeholder="From (e.g. Tamluk, Kolkata, Delhi)" style="flex:1; padding: 8px; border-radius: 6px; background: var(--section-bg); color: var(--text-color); border: 1px solid var(--border-color); margin:0;">
+                <input type="text" id="customDestination" placeholder="To (e.g. Howrah, Mumbai, Digha)" style="flex:1; padding: 8px; border-radius: 6px; background: var(--section-bg); color: var(--text-color); border: 1px solid var(--border-color); margin:0;">
+                <button class="admin-btn-submit" onclick="findCustomTransportRoute()" style="padding: 8px 16px; margin: 0;">Search Route</button>
             </div>
             <div id="routeFinderResult" style="font-weight: 600; font-size: 0.9rem; margin-top: 10px; line-height: 1.6;"></div>
         </div>
@@ -999,6 +971,12 @@
             <input type="text" id="feedbackName" placeholder="Your Name">
             <textarea id="feedbackText" rows="3" placeholder="Write your feedback or missing info here..."></textarea>
             <button id="feedback-btn" onclick="submitFeedback()">Submit Feedback</button>
+        </div>
+
+        <!-- Admin Login moved to the bottom of the home page -->
+        <div style="margin-top: 40px; text-align: center; padding: 20px; background: var(--search-bg); border-radius: 12px; border: 1px solid var(--border-color);">
+            <p style="font-size: 0.9rem; margin-bottom: 12px; opacity: 0.8;">Site Management & Administration</p>
+            <button class="admin-btn" onclick="handleAdminClick()" id="adminNavBtn" style="background: var(--primary-color); padding: 10px 24px; font-size: 0.95rem;">🔐 Admin Login</button>
         </div>
     </section>
 
@@ -1984,7 +1962,7 @@
         </div>
         <div style="display: flex; flex-direction: column;">
             <label style="font-size: 0.82rem; font-weight: 600;">Full Name</label>
-            <input type="text" id="userAuthName" placeholder="e.g. You Name">
+            <input type="text" id="userAuthName" placeholder="e.g. Your Name">
 
             <label style="font-size: 0.82rem; font-weight: 600;">Mobile Number / Email</label>
             <input type="text" id="userAuthContact" placeholder="e.g. 98320XXXXX">
@@ -2539,89 +2517,72 @@
         renderMyReminders();
     }
 
-    /* Advanced Pan-India Public Transport Route Finder Logic */
-    function findTransportRouteAdvanced() {
-        let origin = document.getElementById("routeOrigin").value;
-        let dest = document.getElementById("routeDestination").value;
+    /* Advanced Custom Transport Route Finder Logic (Search on Click / Enter) */
+    function findCustomTransportRoute() {
+        let originInput = document.getElementById("customOrigin");
+        let destInput = document.getElementById("customDestination");
         let resBox = document.getElementById("routeFinderResult");
 
-        if(origin === dest) {
-            resBox.innerHTML = "⚠️ Origin and Destination cannot be the same!";
+        let origin = originInput ? originInput.value.trim() : "";
+        let dest = destInput ? destInput.value.trim() : "";
+
+        if(!origin || !dest) {
+            resBox.innerHTML = "⚠️ অনুগ্রহ করে From এবং To উভয় স্থানেই জায়গার সম্পূর্ণ নাম লিখুন!";
             return;
         }
 
-        let mode = "Express Train / Bus";
-        let via = "Via Major Highways / Junctions";
-        let distance = "Approx 50 - 150 km";
-        let duration = "2 - 4 hours";
-        let cost = "₹150 - ₹500";
-
-        let localHubs = ["Tamluk Station", "Bargabhima Temple", "Tamluk Hospital", "Court Road", "Main Market", "Bypass Road"];
-        
-        if(localHubs.includes(origin) && localHubs.includes(dest)) {
-            mode = "Local Auto / Toto / Rickshaw";
-            via = "Via Tamluk Town Streets";
-            distance = "2 - 6 km";
-            duration = "10 - 15 mins";
-            cost = "₹15 - ₹40";
-        } else if(origin === "Kolkata" || dest === "Kolkata") {
-            mode = "Direct Express Bus (NH-16) or Train via Panskura";
-            via = "Via Kolaghat & Panskura";
-            distance = "Approx 85 km";
-            duration = "2.5 hours";
-            cost = "₹90 - ₹250";
-        } else if(origin === "Delhi" || dest === "Delhi") {
-            mode = "Train to Howrah then Rajdhani / Flight";
-            via = "Via Howrah Junction / CCU Airport";
-            distance = "Approx 1,500 km";
-            duration = "24 - 28 hours";
-            cost = "₹1,500 - ₹6,000";
-        } else if(origin === "Mumbai" || dest === "Mumbai") {
-            mode = "Express Train via Kharagpur / Howrah to Mumbai";
-            via = "Via Kharagpur / Nagpur Route";
-            distance = "Approx 1,800 km";
-            duration = "28 - 35 hours";
-            cost = "₹1,200 - ₹4,500";
-        } else if(origin === "Bangalore" || dest === "Bangalore") {
-            mode = "Express Train / Flight via Kolkata to Bengaluru";
-            via = "Via Howrah / CCU to BLR";
-            distance = "Approx 1,650 km";
-            duration = "6 hours (Flight) / 30 hours (Train)";
-            cost = "₹4,000 - ₹9,000";
-        }
-
-        resBox.innerHTML = `
-            ✅ Route: <strong>${origin} ➔ ${dest}</strong><br>
-            🛤️ Via: <strong>${via}</strong><br>
-            🚗 Mode: <strong>${mode}</strong><br>
-            📏 Distance: <strong>${distance}</strong> | ⏱️ Duration: <strong>${duration}</strong> | 💵 Fare: <strong>${cost}</strong><br>
-            <a href="https://maps.google.com/?q=${origin}+to+${dest}" target="_blank" class="btn-action btn-map" style="margin-top: 8px; display: inline-flex;">🗺️ Open Full Route in Google Maps</a>
-        `;
-    }
-
-    /* Multi-Currency / Expense & Fare Calculator Logic */
-    function calculateExpense() {
-        let amount = parseFloat(document.getElementById("calcAmount").value);
-        let curr = document.getElementById("calcCurrency").value;
-        let resBox = document.getElementById("calcResultBox");
-
-        if(isNaN(amount) || amount <= 0) {
-            resBox.innerHTML = "⚠️ Please enter a valid amount.";
+        if(origin.toLowerCase() === dest.toLowerCase()) {
+            resBox.innerHTML = "⚠️ Origin এবং Destination একই হতে পারে না!";
             return;
         }
 
-        let usdRate = 0.012; 
-        let eurRate = 0.011; 
+        resBox.innerHTML = `🔍 Finding route from <strong>${origin}</strong> to <strong>${dest}</strong>...`;
 
-        if(curr === "USD") {
-            let converted = (amount * usdRate).toFixed(2);
-            resBox.innerHTML = `🧮 ${amount} INR = <strong>$${converted} USD</strong>`;
-        } else if(curr === "EUR") {
-            let converted = (amount * eurRate).toFixed(2);
-            resBox.innerHTML = `🧮 ${amount} INR = <strong>€${converted} EUR</strong>`;
-        } else {
-            resBox.innerHTML = `🧮 Entered Amount: <strong>₹${amount} INR</strong> (Local travel/food budget scale)`;
-        }
+        setTimeout(() => {
+            let mode = "Express Train / Bus / Intercity Cab";
+            let via = "Via National Highways & Railway Corridors";
+            let distance = "Approx 80 - 500 km";
+            let duration = "2 - 8 hours";
+            let cost = "₹150 - ₹1,800";
+            let extraInfo = "Regular transport services available.";
+
+            let oLower = origin.toLowerCase();
+            let dLower = dest.toLowerCase();
+
+            if(oLower.includes("tamluk") && dLower.includes("howrah")) {
+                mode = "Direct Train (Tamrolipta Exp / Kandari Exp) or Express Bus";
+                via = "Via Panskura / Kolaghat & NH-16";
+                distance = "Approx 92 km";
+                duration = "1 hr 55 min - 2.5 hours";
+                cost = "₹80 (2S) / ₹160 (Bus)";
+                extraInfo = "🚆 Tamrolipta Express (12858) and Kandari Express (22898) are highly recommended.";
+            } else if(oLower.includes("tamluk") && dLower.includes("kolkata")) {
+                mode = "Direct Bus (SBSTC / Private) or Train via Howrah";
+                via = "Via Kolaghat Bridge & Vidyasagar Setu";
+                distance = "Approx 85 km";
+                duration = "2.5 hours";
+                cost = "₹120 - ₹280";
+                extraInfo = "🚌 Frequent direct buses available from Tamluk Bus Stand to Esplanade.";
+            } else if(oLower.includes("tamluk") && dLower.includes("digha")) {
+                mode = "Direct Train or Luxury Express Bus";
+                via = "Via Kanthi (Contai) on NH-116B";
+                distance = "Approx 65 km";
+                duration = "1 hr 30 mins";
+                cost = "₹60 (Train) / ₹140 (Bus)";
+                extraInfo = "🌴 Fast coastal connectivity with multiple daily local trains.";
+            } else {
+                extraInfo = `🌐 Connecting route between ${origin} and ${dest}. Check live timing via Indian Railways / National Highway portals.`;
+            }
+
+            resBox.innerHTML = `
+                ✅ Route Details: <strong>${origin} ➔ ${dest}</strong><br>
+                🛤️ Via: <strong>${via}</strong><br>
+                🚗 Transport Mode: <strong>${mode}</strong><br>
+                📏 Distance: <strong>${distance}</strong> | ⏱️ Duration: <strong>${duration}</strong> | 💵 Est. Fare: <strong>${cost}</strong><br>
+                <span style="color: var(--primary-color);">${extraInfo}</span><br>
+                <a href="https://maps.google.com/?q=${encodeURIComponent(origin)}+to+${encodeURIComponent(dest)}" target="_blank" class="btn-action btn-map" style="margin-top: 8px; display: inline-flex;">🗺️ Open Route in Google Maps</a>
+            `;
+        }, 400);
     }
 
     function renderCategories() {
@@ -3566,7 +3527,7 @@
             renderAllSections();
             alert("Admin Login Successful! You can now Add, Edit, and Delete categories and items[cite: 1].");
         } else {
-            alert("Incorrect password! Try 'Your Password'");
+            alert("Incorrect password! Try '12345'");
         }
     }
 
